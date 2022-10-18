@@ -112,9 +112,8 @@ Total params: 467,620
 Trainable params: 467,620
 Non-trainable params: 0
 _________________________________________________________________
-```
+``
 L'accuracy à augmenter à 94.78 % . Le modéle est donc parfait puisqu'il n'ya pas d'overfitting.
-
 ![graph-accuracy vs epoch for test and validation](img/graph_mod2.jpg)
 
 ## Model Accuracy
