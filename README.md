@@ -71,7 +71,7 @@ L'accuracy est de 88.06% avec un overfit comme le montre le graph de la figure c
 ![graph-accuracy vs epoch for test and validation](img/graph_mod1.jpg)
 
 ## Modele V2
-Afin d'améliorer l'accuracy de notre modéle nous avons utilisé à la place du Droupout normal Le Spatial Dropout car ce dernier donne des meilleures résultats avec les réseaux convolutifs . 
+Afin d'améliorer l'accuracy de notre modéle nous avons utilisé à la place du Droupout normal Le Spatial Dropout car ce dernier donne des meilleures résultats avec les réseaux convolutifs .Nous avons auss reduit le nombre d’entrèes après l’aplanissement du modele (flatten) de 512 à 128.La réduction du nombre de paramètres permet aussi de réduire la taille du modéle et il le rend embarquable .  
 ```
 Model: "sequential_1"
 _________________________________________________________________
