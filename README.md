@@ -14,6 +14,7 @@ L'objectif c'est de detecter le niveau de liquide (chloride de sodium) dans les 
 La dataset a été fournit par ST,elle contient des photos des bouteilles prisent de differents angles et avec des niveaux de liquides differents reparties dans 4 dossiers differents (‘sal_data_100’, ‘sal_data_50’, ‘sal_data_80’, ‘sal_data_empty’).
 Les données d'image, pour chaque niveau de remplissage de la bouteille, fournissent différentes perspectives, conditions d'éclairage, mise au point sur la bouteille, arrière-plan. Ces éléments sont utiles pour vérifier l'évidence visuelle du niveau de liquide salin à l'intérieur de la bouteille.
 L'ensemble de données proposé consiste en une archive de 4217 images.
+
 ![graph-accuracy vs epoch for test and validation](img/contents_of_data.jpeg)
 
 Les images de la dataset seront transformée en vecteur numpy array de taille (4217, 64, 64, 3).
