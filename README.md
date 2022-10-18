@@ -1,8 +1,8 @@
 
 ---
-Title: Projet IA Embarqué
-Author: Ayoub BELHOUARI & Elie DAHER
-Date: \today
+title: Projet IA Embarqué
+author: Ayoub BELHOUARI & Elie DAHER
+date: \today
 ---
 
 # EmbeddedAI
