@@ -1,0 +1,505 @@
+{
+    "_allocate_inputs": 4,
+    "_allocate_outputs": 4,
+    "cli_parameters": "validate --name saline_network -m C:/Users/Elie/Downloads/model.h5 --type keras --compression none --verbosity 1 --workspace C:\\Users\\Elie\\AppData\\Local\\Temp\\mxAI_workspace2462881209091005190867456047544791 --output C:\\Users\\Elie\\.stm32cubemx\\saline_network_output --allocate-inputs --allocate-outputs --valoutput C:/Users/Elie/Downloads/y_test2.npy --valinput C:/Users/Elie/Downloads/x_test.npy",
+    "cli_version": {
+        "major": 1,
+        "micro": 0,
+        "minor": 6
+    },
+    "cli_version_str": "1.6.0",
+    "compression": {
+        "factor": null,
+        "layers": {}
+    },
+    "date_time": "Mon Oct 17 09:41:43 2022",
+    "error": 0,
+    "error_str": [],
+    "exec_cmd": "validate",
+    "exec_duration": 0.0,
+    "hash": "6b66b6efda42b6fa87d42b8f12dce746",
+    "inputs": [
+        "input_0"
+    ],
+    "layers": [
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 0,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 49152,
+                    "fmt": {
+                        "format": "float"
+                    },
+                    "shape": [
+                        64,
+                        64,
+                        3,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 0,
+            "inputs": [],
+            "name": "input_0",
+            "original": null,
+            "type": "Input"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 3538976,
+                "n_params": 896,
+                "psize": 3584,
+                "rom_output": {
+                    "c_size": 131072,
+                    "fmt": {
+                        "format": "float"
+                    },
+                    "shape": [
+                        32,
+                        32,
+                        32,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 0,
+            "inputs": [
+                "input_0"
+            ],
+            "name": "conv2d_4_conv2d",
+            "original": "Conv2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 131072,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 0,
+            "inputs": [
+                "conv2d_4_conv2d"
+            ],
+            "name": "conv2d_4",
+            "original": "Conv2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                0
+            ],
+            "extras": {
+                "n_macc": 131072,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 3584
+            },
+            "id": 1,
+            "inputs": [
+                "conv2d_4"
+            ],
+            "name": "max_pooling2d_3",
+            "original": "MaxPooling2D",
+            "type": "Pool"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 8294432,
+                "n_params": 9248,
+                "psize": 36992,
+                "rom_output": {
+                    "c_size": 28800,
+                    "fmt": {
+                        "format": "float"
+                    },
+                    "shape": [
+                        15,
+                        15,
+                        32,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 2,
+            "inputs": [
+                "max_pooling2d_3"
+            ],
+            "name": "conv2d_5_conv2d",
+            "original": "Conv2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 28800,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 2,
+            "inputs": [
+                "conv2d_5_conv2d"
+            ],
+            "name": "conv2d_5",
+            "original": "Conv2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                1
+            ],
+            "extras": {
+                "n_macc": 28800,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 36992
+            },
+            "id": 4,
+            "inputs": [
+                "conv2d_5"
+            ],
+            "name": "max_pooling2d_4",
+            "original": "MaxPooling2D",
+            "type": "Pool"
+        },
+        {
+            "c_id": [
+                2
+            ],
+            "extras": {
+                "n_macc": 4147264,
+                "n_params": 18496,
+                "psize": 73984,
+                "rom_output": {
+                    "c_size": 57600,
+                    "fmt": {
+                        "format": "float"
+                    },
+                    "shape": [
+                        15,
+                        15,
+                        64,
+                        1
+                    ]
+                },
+                "rom_size": 73984
+            },
+            "id": 5,
+            "inputs": [
+                "max_pooling2d_4"
+            ],
+            "name": "conv2d_6_conv2d",
+            "original": "Conv2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 14400,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 5,
+            "inputs": [
+                "conv2d_6_conv2d"
+            ],
+            "name": "conv2d_6",
+            "original": "Conv2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 8294464,
+                "n_params": 36928,
+                "psize": 147712,
+                "rom_output": {
+                    "c_size": 12544,
+                    "fmt": {
+                        "format": "float"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        64,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 6,
+            "inputs": [
+                "conv2d_6"
+            ],
+            "name": "conv2d_7_conv2d",
+            "original": "Conv2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 14400,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 6,
+            "inputs": [
+                "conv2d_7_conv2d"
+            ],
+            "name": "conv2d_7",
+            "original": "Conv2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                3
+            ],
+            "extras": {
+                "n_macc": 12544,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 147712
+            },
+            "id": 7,
+            "inputs": [
+                "conv2d_7"
+            ],
+            "name": "max_pooling2d_5",
+            "original": "MaxPooling2D",
+            "type": "Pool"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 0,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 9,
+            "inputs": [
+                "max_pooling2d_5"
+            ],
+            "name": "flatten_1",
+            "original": "Flatten",
+            "type": "Reshape"
+        },
+        {
+            "c_id": [
+                4,
+                5
+            ],
+            "extras": {
+                "n_macc": 401536,
+                "n_params": 401536,
+                "psize": 1606144,
+                "rom_output": {
+                    "c_size": 512,
+                    "fmt": {
+                        "format": "float"
+                    },
+                    "shape": [
+                        1,
+                        1,
+                        128,
+                        1
+                    ]
+                },
+                "rom_size": 1606144
+            },
+            "id": 10,
+            "inputs": [
+                "flatten_1"
+            ],
+            "name": "dense_2_dense",
+            "original": "Dense",
+            "type": "Dense"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 128,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 512,
+                    "fmt": {
+                        "format": "float"
+                    },
+                    "shape": [
+                        1,
+                        1,
+                        128,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 10,
+            "inputs": [
+                "dense_2_dense"
+            ],
+            "name": "dense_2",
+            "original": "Dense",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                6,
+                7
+            ],
+            "extras": {
+                "n_macc": 516,
+                "n_params": 516,
+                "psize": 2064,
+                "rom_output": {
+                    "c_size": 16,
+                    "fmt": {
+                        "format": "float"
+                    },
+                    "shape": [
+                        1,
+                        1,
+                        4,
+                        1
+                    ]
+                },
+                "rom_size": 2064
+            },
+            "id": 12,
+            "inputs": [
+                "dense_2"
+            ],
+            "name": "dense_3_dense",
+            "original": "Dense",
+            "type": "Dense"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 60,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 16,
+                    "fmt": {
+                        "format": "float"
+                    },
+                    "shape": [
+                        1,
+                        1,
+                        4,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 12,
+            "inputs": [
+                "dense_3_dense"
+            ],
+            "name": "dense_3",
+            "original": "Dense",
+            "type": "Nonlinearity"
+        }
+    ],
+    "model_files": [
+        "C:\\Users\\Elie\\Downloads\\model.h5"
+    ],
+    "model_n_params": 467620,
+    "model_name": "model",
+    "model_size": 1870480,
+    "model_type": "keras",
+    "name": "saline_network",
+    "outputs": [
+        "dense_3"
+    ],
+    "ram_io_size": [
+        49152,
+        16
+    ],
+    "ram_size": [
+        161280,
+        161280
+    ],
+    "report_version": 1.1,
+    "rom_cfact": 1.0,
+    "rom_heap_inspector": 2048,
+    "rom_inputs": [
+        {
+            "c_size": 49152,
+            "c_type": "float",
+            "name": "input_0"
+        }
+    ],
+    "rom_n_macc": 25038464,
+    "rom_outputs": [
+        {
+            "c_size": 16,
+            "c_type": "float",
+            "name": "dense_3"
+        }
+    ],
+    "rom_size": 1870480,
+    "strategy": "heap_overlay",
+    "tools_api_version": {
+        "major": 1,
+        "micro": 0,
+        "minor": 6
+    },
+    "tools_version": {
+        "extra": "RC5",
+        "major": 7,
+        "micro": 0,
+        "minor": 2
+    },
+    "val_error": 2.0608480610917468e-07,
+    "val_error_desc": "x-cross (l2r) #1",
+    "val_metrics": [
+        {
+            "acc": "94.79%",
+            "desc": "x86 c-model #1",
+            "l2r": 0.29925477504730225,
+            "mae": 0.030727852135896683,
+            "mean": -5.14624842740119e-10,
+            "nse": 0.8849976375470127,
+            "rmse": 0.14686070382595062,
+            "std": 0.14687810838222504,
+            "ts_name": "dense_3, ai_float, (1,1,1,4), m_id=[12]"
+        },
+        {
+            "acc": "94.79%",
+            "desc": "original model #1",
+            "l2r": 0.299254834651947,
+            "mae": 0.03072785958647728,
+            "mean": -6.642880134855034e-10,
+            "nse": 0.8849976176835183,
+            "rmse": 0.14686071872711182,
+            "std": 0.14687812328338623,
+            "ts_name": "dense_3, ai_float, (1,1,1,4), m_id=[12]"
+        },
+        {
+            "acc": "100.00%",
+            "desc": "X-cross #1",
+            "l2r": 2.0608480610917468e-07,
+            "mae": 2.217626793310501e-08,
+            "mean": -1.5800442898505906e-10,
+            "nse": 0.9999999999999427,
+            "rmse": 1.011371040249287e-07,
+            "std": 1.0114896298318854e-07,
+            "ts_name": "dense_3, ai_float, (1,1,1,4), m_id=[12]"
+        }
+    ]
+}
