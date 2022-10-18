@@ -23,11 +23,13 @@ Ce code python transforme aussi les images en negative pour avoir de meilleurs d
 
 L'augmentation des images est effectuée aussi  avant la formation du réseau neuronal. La procédure agit sur certains paramètres tels que l'angle de rotation de 40°, le décalage en largeur de 0,2, le décalage en hauteur de 0,2, le zoom de 0,2 et le retournement horizontal autorisé. Il convient de noter que la classe ne renvoie que les images augmentées et non les images originales. Comme le nombre d'échantillons dans l'ensemble de données a augmenté, on s'attend à ce que le modèle puisse atteindre une meilleure précision dans des conditions de travail plus générales. 
 
-# Modele
+# Modèle
 
-Nous avons monté et entraîné un réseau de neurones convolutifs à l'aide de ce jeu de données afin de montrer un exemple des performances qui peuvent être atteintes.
+Nous avons monté et entraîné un réseau de neurones convolutifs à l'aide de ce jeu de données afin de montrer un exemple des performances qui peuvent être atteintes.La précision et la perte obtenues sont également rapportées . 
+Le fichier model.ipynb décrit les différentes étapes parcourus .
 
-## Modele V1
+## Modèle V1
+La structure de réseau est composée de 4 couches convolutionnelles 2D avec un filtre de taille 3 × 3 suivi d'une fonction d'activation ReLu avec l'utilisation du pooling max 2D avec une taille de pool 2 × 2 et des Dropout. La figure ci-dessous illustre le résumé du modèle Keras avec le nombre de paramètres. Enfin dans la derniere couche l'utilisation de la fonction d'activation Softmax est un choix judicieux pour classer les images d'entraînement fournies en entrée en 4 classes de niveau de remplissage. 
 
 ```
 Model: "sequential_38"
@@ -65,8 +67,14 @@ Total params: 7,440,932
 Trainable params: 7,440,932
 Non-trainable params: 0
 ```
-Ce modele avait une accuracy de 88.06% et il avait un peut overfit comme le montre le graph de la figure ci-dessous:
-![graph-accuracy vs epoch for test and validation](img/graph_mod1.jpg)
+L'accuracy est de 88.06% avec un overfit comme le montre le graph de la figure ci-dessous:
+
+<p align="center">
+  <img src="img/graph_mod1.jpg" />
+</p>
+
+## Modèle V2
+Afin d'améliorer l'accuracy de notre modéle nous avons utilisé à la place du Droupout normal Le Spatial Dropout car ce dernier donne des meilleures résultats avec les réseaux convolutifs .Nous avons auss reduit le nombre d’entrèes après l’aplanissement du modele (flatten) de 512 à 128.La réduction du nombre de paramètres permet aussi de réduire la taille du modéle et il le rend embarquable .  
 
 ```
 Model: "sequential_1"
@@ -122,9 +130,15 @@ Epoch 50/50
 99/99 [==============================] - 23s 234ms/step - loss: 0.0473 - accuracy: 0.9836 - val_loss: 0.2151 - val_accuracy: 0.9479
 ```
 
-## Model Accuracy
-Apres avoir tester le model, L'accuracy du modèle est  94.78 % et d'aprés le graphe on remarque que le modéle n'overfitt pas.
-Afin d'embarquer le modéle sur la carte STM32 nous avons sauvegarder le modele sous format h5 “model.h5” ainsi que les  images et labels pour le test (x_test.npy et y_test.npy).
+L'accuracy a augmenter à 94.78 % . Le modéle est donc parfait puisqu'il n'ya pas d'overfitting.
+
+<p align="center">
+  <img src="img/graph_mod2.jpg" />
+</p>
+
+# L'envoi du modèle sur la carte STM32L4R9 
+Jusqu'à maintenant nous avons notre modèle avec une accuracy de 94.78. Nous allons maintenant embarquer le modèle sur la carte.
+Pour embarquer le modéle sur la carte STM32 nous avons sauvegarder le modele sous format h5 “model.h5” ainsi que les images et les labels .(x_test.npy et y_test.npy).
 
 
 
@@ -132,11 +146,24 @@ Afin d'embarquer le modéle sur la carte STM32 nous avons sauvegarder le modele 
 
 
 
-# Exemple contradictoire utilisant FGSM : 
+## Exemple d'attaque utilisant FGSM : 
 
 Afin de tester la sécurité et l'intégrité de notre modéle nous avons appliquée un exemple d’attaque contradictoire à l’aide de l’attaque Fast Gradient Signed Method (FGSM).
 La méthode du signe de gradient rapide fonctionne en utilisant les gradients du réseau de neurones pour créer un exemple contradictoire.  
 
+<p align="center">
+  <img src="img/attaqueFGSM.png" />
+</p>
+
+La prédiction avant l’attaque était 2 c'est-à-dire la bouteille est à 80 % mais on appliquons différentes valeurs de epsilons la prédiction change et le modèle se trompe .Le modèle résiste aux attaques avec des eps < 0.7 mais au delà de cette valeur il se trompe. cela vient comme un compromis qui fait que les perturbations deviennent plus identifiables.Cela est dû peut-être à la taille de l’image qui est petite donc il faut utiliser des grandes valeurs de eps pour que le modèle identifie la différence . 
 
 
+
+<p align="center">
+  <img src="img/4imageepsdiffs.png" />
+</p>
+
+## Attaquer le modéle sur la carte STM32 : 
+
+Après avoir appliquer des attaques sur le modèle maintenant nous allons tester la résistance de la carte aux attaques  . 
 
