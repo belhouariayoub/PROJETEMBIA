@@ -15,7 +15,7 @@ La dataset a été fournit par ST,elle contient des photos des bouteilles prisen
 Les données d'image, pour chaque niveau de remplissage de la bouteille, fournissent différentes perspectives, conditions d'éclairage, mise au point sur la bouteille, arrière-plan. Ces éléments sont utiles pour vérifier l'évidence visuelle du niveau de liquide salin à l'intérieur de la bouteille.
 L'ensemble de données proposé consiste en une archive de 4217 images.
 
-![graph-accuracy vs epoch for test and validation](img/contents_of_data.jpeg)
+![graph-accuracy vs epoch for test and validation](img/contents_of_data.jpeg#center)
 
 Les images de la dataset seront transformée en vecteur numpy array de taille (4217, 64, 64, 3).
 Ces donnees sont apres divisees en train et test sets avec lesquelles on va entrainer notre modele.
@@ -23,7 +23,7 @@ Pour notre modele, il etait conseiller de transformer les images en negative pou
 Apres, on a fait la data augmentation des donnes pour generer plusieurs variations de chaque image et mieux generaliser notre modele.
  
 # Modele
-### Modele V1
+## Modele V1
 
 ```
 Model: "sequential_38"
@@ -118,11 +118,8 @@ Epoch 50/50
 99/99 [==============================] - 23s 234ms/step - loss: 0.0473 - accuracy: 0.9836 - val_loss: 0.2151 - val_accuracy: 0.9479
 ```
 
-### Model Accuracy
+## Model Accuracy
 Apres avoir tester le model, L'accuracy du modèle est  94.78 % et d'aprés le graphe on remarque que le modéle n'overfitt pas.
-
-![graph-accuracy vs epoch for test and validation](img/graph_mod2.jpg)
-
 Afin d'embarquer le modéle sur la carte STM32 nous avons sauvegarder le modele sous format h5 “model.h5” ainsi que les  images et labels pour le test (x_test.npy et y_test.npy).
 
 
