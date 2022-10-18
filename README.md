@@ -152,6 +152,7 @@ La prédiction avant l’attaque était 2 c'est-à-dire la bouteille est à 80 %
 
 
 <p align="center">
-![attaques FGSM avec différentes valeurs de eps](img/4imageepsdiffs.png#center)
+  <img src="img/4imageepsdiffs.png" />
 </p>
+
 
