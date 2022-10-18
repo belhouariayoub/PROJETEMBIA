@@ -6,7 +6,7 @@
 
 # Introduction
 
-Ce projet décrit l'implémentation d'un modèle de réseaux neurone basés sur la base de donnée Salinebottle sur UNE carte STM Discovery (STM32L4R9). Il contient l'archive du projet et les scripts python pour construire le modèle et communiquer avec la carte. 
+Ce projet décrit l'implémentation d'un modèle de réseau de neurones basés sur la base de donnée Salinebottle sur UNE carte STM Discovery (STM32L4R9). Il contient l'archive du projet et les scripts python pour construire le modèle et communiquer avec la carte. 
 L'objectif c'est de detecter le niveau de liquide (chloride de sodium) dans les boteilles pour la surveillance du niveau de remplissage avec une IA embarquée.
 
 # Datasets
@@ -139,6 +139,15 @@ L'accuracy a augmenter à 94.78 % . Le modéle est donc parfait puisqu'il n'ya p
 # L'envoi du modèle sur la carte STM32L4R9 
 Jusqu'à maintenant nous avons notre modèle avec une accuracy de 94.78. Nous allons maintenant embarquer le modèle sur la carte.
 Pour embarquer le modéle sur la carte STM32 nous avons sauvegarder le modele sous format h5 “model.h5” ainsi que les images et les labels .(x_test.npy et y_test.npy).
+Après, on cré notre network "saline_network" sur *STMCubeIDE* et on analyse notre modèle.
+Les résultats sont indiqués dans la figure ci-dessous:
+<p align="center">
+  <img src="img/modele_cubeAI.jpg" />
+</p>
+On peut voir que notre modèle utilise 1.80MiB/2.00 MiB de notre mémoire flash. Alors, on a pu embarquer notre mdèle sans compression ni pruning!
+Ensuite, on valide sur le PC (Validate on Desktop) et on optient la mëme "Accuracy" qu'on avait (94.79%).
+
+
 
 
 
