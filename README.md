@@ -3,14 +3,16 @@
    ### Ayoub BELHOUARI & Elie DAHER
    #### 18-10-2022
 ---
- 
+
 # Introduction
-Notre projet consiste à faire un aysteme d'intelligence artificielle quui va detecter le niveau de liquide (chloride de sodium) dans les boteilles pour la surveillance du niveau de remplissage.
-Apres, il faut mettre ce systeme sur notre carte STM Discovery (STM32L4R9) et tester les inferences des images sur la carte elle meme.
- 
+
+Ce projet décrit l'implémentation d'un modèle de réseaux neurone basés sur la base de donnée Salinebottle sur UNE carte STM Discovery (STM32L4R9). Il contient l'archive du projet et les scripts python pour construire le modèle et communiquer avec la carte. 
+L'objectif c'est de detecter le niveau de liquide (chloride de sodium) dans les boteilles pour la surveillance du niveau de remplissage avec une IA embarquée.
+
 # Datasets
-Pour les donnees, on a telechargé une base de donnee fournie par ST qui contient des photos des bouteilles prisent de differents angles et avec des niveaux de liquides differents reparties dans 4 dossiers differents (‘sal_data_100’, ‘sal_data_50’, ‘sal_data_80’, ‘sal_data_empty’).
-Ces images sont apres transformees en numpy array de forme (4217, 64, 64, 3).
+
+La dataset à été fournit par ST,elle contient des photos des bouteilles prisent de differents angles et avec des niveaux de liquides differents reparties dans 4 dossiers differents (‘sal_data_100’, ‘sal_data_50’, ‘sal_data_80’, ‘sal_data_empty’).
+Les images de la dataset seront transformée en vecteur numpy array de taille (4217, 64, 64, 3).
 Ces donnees sont apres divisees en train et test sets avec lesquelles on va entrainer notre modele.
 Pour notre modele, il etait conseiller de transformer les images en negative pour avoir de meilleurs detections de niveau.
 Apres, on a fait la data augmentation des donnes pour generer plusieurs variations de chaque image et mieux generaliser notre modele.
@@ -121,7 +123,7 @@ Afin d'embarquer le modéle sur la carte STM32 nous avons sauvegarder le modele 
 
 
 
-Exemple contradictoire utilisant FGSM : 
+# Exemple contradictoire utilisant FGSM : 
 
 Afin de tester la sécurité et l'intégrité de notre modéle nous avons appliquée un exemple d’attaque contradictoire à l’aide de l’attaque Fast Gradient Signed Method (FGSM).
 La méthode du signe de gradient rapide fonctionne en utilisant les gradients du réseau de neurones pour créer un exemple contradictoire.  
