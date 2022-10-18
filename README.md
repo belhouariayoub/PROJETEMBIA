@@ -1,3 +1,10 @@
+
+---
+Title: Projet IA Embarqué
+Author: Ayoub BELHOUARI & Elie DAHER
+Date: \today
+---
+
 # EmbeddedAI
 Projet IA Embarquée - Ayoub BELHOUARI et Elie DAHER
 
