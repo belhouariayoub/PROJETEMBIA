@@ -129,6 +129,12 @@ Afin d'embarquer le modéle sur la carte STM32 nous avons sauvegarder le modele 
 
 
 
+# Tester Notre Modele
+Le fichier test_model.ipynb permet de tester notre modele model.h5
+Apres qu’on load notre modele, x_test.npy, et y_test.npy, on a evaluer le modele et on reobtient l’accuracy de 64.79%.
+On passe ensuite une image test et la prediction est correcte comme le montre la figure ci-dessous:
+
+![prediction of test image](img/test_model1.jpg)
 
 
 
