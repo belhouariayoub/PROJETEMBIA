@@ -126,7 +126,7 @@ Epoch 50/50
 99/99 [==============================] - 23s 234ms/step - loss: 0.0473 - accuracy: 0.9836 - val_loss: 0.2151 - val_accuracy: 0.9479
 ```
 
-L'accuracy à augmenter à 94.78 % . Le modéle est donc parfait puisqu'il n'ya pas d'overfitting.
+L'accuracy a augmenter à 94.78 % . Le modéle est donc parfait puisqu'il n'ya pas d'overfitting.
 ![graph-accuracy vs epoch for test and validation](img/graph_mod2.jpg)
 
 ## Model Accuracy
