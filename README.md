@@ -62,6 +62,7 @@ Trainable params: 7,440,932
 Non-trainable params: 0
 ```
 Ce modele avait une accuracy de 88.06% et il avait un peut overfit comme le montre le graph de la figure ci-dessous:
+
 ![graph-accuracy vs epoch for test and validation](img/graph_mod1.jpg)
 
 ```
@@ -120,6 +121,9 @@ Epoch 50/50
 
 ## Model Accuracy
 Apres avoir tester le model, L'accuracy du modèle est  94.78 % et d'aprés le graphe on remarque que le modéle n'overfitt pas.
+
+![graph-accuracy vs epoch for test and validation](img/graph_mod2.jpg)
+
 Afin d'embarquer le modéle sur la carte STM32 nous avons sauvegarder le modele sous format h5 “model.h5” ainsi que les  images et labels pour le test (x_test.npy et y_test.npy).
 
 
