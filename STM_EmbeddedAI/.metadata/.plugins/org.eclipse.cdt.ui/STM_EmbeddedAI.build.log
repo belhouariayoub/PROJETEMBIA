@@ -1,0 +1,45 @@
+13:31:04 **** Incremental Build of configuration Debug for project STM_EmbeddedAI ****
+make -j4 all 
+arm-none-eabi-gcc "../X-CUBE-AI/App/app_x-cube-ai.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4R9xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -I../X-CUBE-AI/App -I../X-CUBE-AI -I../Middlewares/ST/AI/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"X-CUBE-AI/App/app_x-cube-ai.d" -MT"X-CUBE-AI/App/app_x-cube-ai.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "X-CUBE-AI/App/app_x-cube-ai.o"
+../X-CUBE-AI/App/app_x-cube-ai.c: In function 'acquire_and_process_data':
+../X-CUBE-AI/App/app_x-cube-ai.c:188:8: warning: variable 'input' set but not used [-Wunused-but-set-variable]
+  188 |  float input[64][64][3] = {0};
+      |        ^~~~~
+../X-CUBE-AI/App/app_x-cube-ai.c: In function 'post_process':
+../X-CUBE-AI/App/app_x-cube-ai.c:235:20: warning: initialization of 'uint8_t *' {aka 'unsigned char *'} from incompatible pointer type 'ai_i8 **' {aka 'signed char **'} [-Wincompatible-pointer-types]
+  235 |  uint8_t *output = data; // don't care about the signed value of ai_i8...
+      |                    ^~~~
+../X-CUBE-AI/App/app_x-cube-ai.c:237:8: warning: variable 'prob_classes' set but not used [-Wunused-but-set-variable]
+  237 |  float prob_classes[4] = {0};
+      |        ^~~~~~~~~~~~
+../X-CUBE-AI/App/app_x-cube-ai.c: In function 'MX_X_CUBE_AI_Process':
+../X-CUBE-AI/App/app_x-cube-ai.c:316:38: warning: passing argument 1 of 'acquire_and_process_data' from incompatible pointer type [-Wincompatible-pointer-types]
+  316 |       res = acquire_and_process_data(in_data);//data_ins);
+      |                                      ^~~~~~~
+      |                                      |
+      |                                      uint8_t * {aka unsigned char *}
+../X-CUBE-AI/App/app_x-cube-ai.c:173:37: note: expected 'ai_i8 **' {aka 'signed char **'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  173 | int acquire_and_process_data(ai_i8* data[])
+      |                              ~~~~~~~^~~~~~
+../X-CUBE-AI/App/app_x-cube-ai.c:322:28: warning: passing argument 1 of 'post_process' from incompatible pointer type [-Wincompatible-pointer-types]
+  322 |         res = post_process(out_data);//data_outs);
+      |                            ^~~~~~~~
+      |                            |
+      |                            uint8_t * {aka unsigned char *}
+../X-CUBE-AI/App/app_x-cube-ai.c:221:25: note: expected 'ai_i8 **' {aka 'signed char **'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  221 | int post_process(ai_i8* data[])
+      |                  ~~~~~~~^~~~~~
+arm-none-eabi-gcc -o "STM_EmbeddedAI.elf" @"objects.list"  -l:NetworkRuntime720_CM4_GCC.a -mcpu=cortex-m4 -T"C:\Users\Elie\Documents\ISMIN\3A\Embedded AI\STM_EmbeddedAI\STM_EmbeddedAI\STM32L4R9AIIX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM_EmbeddedAI.map" -Wl,--gc-sections -static -L../Middlewares/ST/AI/Lib --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: STM_EmbeddedAI.elf
+ 
+arm-none-eabi-size   STM_EmbeddedAI.elf 
+arm-none-eabi-objdump -h -S  STM_EmbeddedAI.elf  > "STM_EmbeddedAI.list"
+   text	   data	    bss	    dec	    hex	filename
+1918088	   3348	 166408	2087844	 1fdba4	STM_EmbeddedAI.elf
+Finished building: default.size.stdout
+ 
+Finished building: STM_EmbeddedAI.list
+ 
+
+13:31:13 Build Finished. 0 errors, 5 warnings. (took 8s.911ms)
+
