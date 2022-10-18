@@ -72,7 +72,7 @@ L'accuracy est de 88.06% avec un overfit comme le montre le graph de la figure c
 
 ## Modele V2
 Afin d'améliorer l'accuracy de notre modéle nous avons utilisé à la place du Droupout normal Le Spatial Dropout car ce dernier donne des meilleures résultats avec les réseaux convolutifs . 
-` ``
+```
 Model: "sequential_1"
 _________________________________________________________________
  Layer (type)                Output Shape              Param #   
@@ -112,7 +112,20 @@ Total params: 467,620
 Trainable params: 467,620
 Non-trainable params: 0
 _________________________________________________________________
-``
+Epoch 1/50
+99/99 [==============================] - 23s 228ms/step - loss: 1.3891 - accuracy: 0.2533 - val_loss: 1.3853 - val_accuracy: 0.2474
+Epoch 2/50
+99/99 [==============================] - 25s 253ms/step - loss: 1.3842 - accuracy: 0.2720 - val_loss: 1.3845 - val_accuracy: 0.2844
+Epoch 3/50
+99/99 [==============================] - 23s 234ms/step - loss: 1.3182 - accuracy: 0.3624 - val_loss: 1.3109 - val_accuracy: 0.4076
+.
+.
+Epoch 49/50
+99/99 [==============================] - 23s 234ms/step - loss: 0.0602 - accuracy: 0.9801 - val_loss: 0.2776 - val_accuracy: 0.9355
+Epoch 50/50
+99/99 [==============================] - 23s 234ms/step - loss: 0.0473 - accuracy: 0.9836 - val_loss: 0.2151 - val_accuracy: 0.9479
+```
+
 L'accuracy à augmenter à 94.78 % . Le modéle est donc parfait puisqu'il n'ya pas d'overfitting.
 ![graph-accuracy vs epoch for test and validation](img/graph_mod2.jpg)
 
