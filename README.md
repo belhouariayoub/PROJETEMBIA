@@ -129,9 +129,9 @@ Epoch 50/50
 L'accuracy a augmenter à 94.78 % . Le modéle est donc parfait puisqu'il n'ya pas d'overfitting.
 ![graph-accuracy vs epoch for test and validation](img/graph_mod2.jpg)
 
-## Model Accuracy
-Apres avoir tester le model, L'accuracy du modèle est  94.78 % et d'aprés le graphe on remarque que le modéle n'overfitt pas.
-Afin d'embarquer le modéle sur la carte STM32 nous avons sauvegarder le modele sous format h5 “model.h5” ainsi que les  images et labels pour le test (x_test.npy et y_test.npy).
+# L'envoi du modèle sur la carte STM32L4R9 
+Jusqu'à maintenant nous avons notre modèle avec une accuracy de 94.78. Nous allons maintenant embarquer le modèle sur la carte.
+Pour embarquer le modéle sur la carte STM32 nous avons sauvegarder le modele sous format h5 “model.h5” ainsi que les images et les labels .(x_test.npy et y_test.npy).
 
 
 
@@ -139,7 +139,7 @@ Afin d'embarquer le modéle sur la carte STM32 nous avons sauvegarder le modele 
 
 
 
-# Exemple contradictoire utilisant FGSM : 
+## Exemple contradictoire utilisant FGSM : 
 
 Afin de tester la sécurité et l'intégrité de notre modéle nous avons appliquée un exemple d’attaque contradictoire à l’aide de l’attaque Fast Gradient Signed Method (FGSM).
 La méthode du signe de gradient rapide fonctionne en utilisant les gradients du réseau de neurones pour créer un exemple contradictoire.  
