@@ -6,7 +6,7 @@
 
 # Introduction
 
-Ce projet décrit l'implémentation d'un modèle de réseau de neurones basés sur la base de donnée Salinebottle sur UNE carte STM Discovery (STM32L4R9). Il contient l'archive du projet et les scripts python pour construire le modèle et communiquer avec la carte. 
+Ce projet décrit l'implémentation d'un modèle de réseau de neurones basés sur la base de donnée Salinebottle sur unce carte STM Discovery (STM32L4R9). Il contient l'archive du projet et les scripts python pour construire le modèle et communiquer avec la carte. 
 L'objectif c'est de detecter le niveau de liquide (chloride de sodium) dans les boteilles pour la surveillance du niveau de remplissage avec une IA embarquée.
 
 # Datasets
@@ -17,11 +17,11 @@ L'ensemble de données proposé consiste en une archive de 4217 images.
 
 ![graph-accuracy vs epoch for test and validation](img/contents_of_data.jpeg#center)
 
-Le fichier Dataprocessing.ipynb fourni dans le répertoire  est utile pour construire le pipeline logiciel qui opère sur l'ensemble de données. Ce pipeline manipule les images, construit les structures appropriées pour accueillir l'ensemble de données redimensionné et la procédure de redimensionnement de 3456 × 3456 pixels de résolution à 64 × 64.Il convertit aussi les images à des vecteur numpy array pour l'entrainement . 
+Le fichier Dataprocessing.ipynb fourni dans le répertoire  est utile pour construire le pipeline logiciel qui opère sur l'ensemble de données. Ce pipeline manipule les images, construit les structures appropriées pour accueillir l'ensemble de données redimensionné et il redimensione les images de 3456 × 3456 pixels de résolution à 64 × 64.Il convertit aussi les images à des vecteur numpy array pour l'entrainement . 
 Ces donnees seront diviser en train et test sets avec lesquelles nous allons entrainer et tester le modèle.(les fichiers X_org,Y_org et X_test,Y_test).
 Ce code python transforme aussi les images en negative pour avoir de meilleurs detections de niveau.
 
-L'augmentation des images est effectuée aussi  avant la formation du réseau neuronal. La procédure agit sur certains paramètres tels que l'angle de rotation de 40°, le décalage en largeur de 0,2, le décalage en hauteur de 0,2, le zoom de 0,2 et le retournement horizontal autorisé. Il convient de noter que la classe ne renvoie que les images augmentées et non les images originales. Comme le nombre d'échantillons dans l'ensemble de données a augmenté, on s'attend à ce que le modèle puisse atteindre une meilleure précision dans des conditions de travail plus générales. 
+L'augmentation des images est effectuée aussi avant la formation du réseau neuronal. La procédure agit sur certains paramètres tels que l'angle de rotation de 40°, le décalage en largeur de 0,2, le décalage en hauteur de 0,2, le zoom de 0,2 et le retournement horizontal autorisé. Il convient de noter que la classe ne renvoie que les images augmentées et non les images originales. Comme le nombre d'échantillons dans l'ensemble de données a augmenté, on s'attend à ce que le modèle puisse atteindre une meilleure précision dans des conditions de travail plus générales. 
 
 # Modèle
 
