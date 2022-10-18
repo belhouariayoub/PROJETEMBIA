@@ -11,13 +11,22 @@ L'objectif c'est de detecter le niveau de liquide (chloride de sodium) dans les 
 
 # Datasets
 
-La dataset à été fournit par ST,elle contient des photos des bouteilles prisent de differents angles et avec des niveaux de liquides differents reparties dans 4 dossiers differents (‘sal_data_100’, ‘sal_data_50’, ‘sal_data_80’, ‘sal_data_empty’).
-Les images de la dataset seront transformée en vecteur numpy array de taille (4217, 64, 64, 3).
-Ces donnees sont apres divisees en train et test sets avec lesquelles on va entrainer notre modele.
-Pour notre modele, il etait conseiller de transformer les images en negative pour avoir de meilleurs detections de niveau.
-Apres, on a fait la data augmentation des donnes pour generer plusieurs variations de chaque image et mieux generaliser notre modele.
- 
+La dataset a été fournit par ST,elle contient des photos des bouteilles prisent de differents angles et avec des niveaux de liquides differents reparties dans 4 dossiers differents (‘sal_data_100’, ‘sal_data_50’, ‘sal_data_80’, ‘sal_data_empty’).
+Les données d'image, pour chaque niveau de remplissage de la bouteille, fournissent différentes perspectives, conditions d'éclairage, mise au point sur la bouteille, arrière-plan. Ces éléments sont utiles pour vérifier l'évidence visuelle du niveau de liquide salin à l'intérieur de la bouteille.
+L'ensemble de données proposé consiste en une archive de 4217 images.
+
+![graph-accuracy vs epoch for test and validation](img/contents_of_data.jpeg#center)
+
+Le fichier Dataprocessing.ipynb fourni dans le répertoire  est utile pour construire le pipeline logiciel qui opère sur l'ensemble de données. Ce pipeline manipule les images, construit les structures appropriées pour accueillir l'ensemble de données redimensionné et la procédure de redimensionnement de 3456 × 3456 pixels de résolution à 64 × 64.Il convertit aussi les images à des vecteur numpy array pour l'entrainement . 
+Ces donnees seront diviser en train et test sets avec lesquelles nous allons entrainer et tester le modèle.(les fichiers X_org,Y_org et X_test,Y_test).
+Ce code python transforme aussi les images en negative pour avoir de meilleurs detections de niveau.
+
+L'augmentation des images est effectuée aussi  avant la formation du réseau neuronal. La procédure agit sur certains paramètres tels que l'angle de rotation de 40°, le décalage en largeur de 0,2, le décalage en hauteur de 0,2, le zoom de 0,2 et le retournement horizontal autorisé. Il convient de noter que la classe ne renvoie que les images augmentées et non les images originales. Comme le nombre d'échantillons dans l'ensemble de données a augmenté, on s'attend à ce que le modèle puisse atteindre une meilleure précision dans des conditions de travail plus générales. 
+
 # Modele
+
+Nous avons monté et entraîné un réseau de neurones convolutifs à l'aide de ce jeu de données afin de montrer un exemple des performances qui peuvent être atteintes.
+
 ## Modele V1
 
 ```
