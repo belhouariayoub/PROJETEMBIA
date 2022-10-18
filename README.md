@@ -145,7 +145,7 @@ Pour embarquer le modéle sur la carte STM32 nous avons sauvegarder le modele so
 Afin de tester la sécurité et l'intégrité de notre modéle nous avons appliquée un exemple d’attaque contradictoire à l’aide de l’attaque Fast Gradient Signed Method (FGSM).
 La méthode du signe de gradient rapide fonctionne en utilisant les gradients du réseau de neurones pour créer un exemple contradictoire.  
 
-![attaques FGSM](img/Capture d’écran 2022-10-18 à 21.27.36.png#center)
+![attaques FGSM](img/attaqueFGSM.png#center)
 
 
 
