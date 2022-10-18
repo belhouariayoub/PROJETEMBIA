@@ -128,7 +128,7 @@ Epoch 50/50
 ```
 
 L'accuracy a augmenter à 94.78 % . Le modéle est donc parfait puisqu'il n'ya pas d'overfitting.
-![graph-accuracy vs epoch for test and validation](img/graph_mod2.jpg)
+![graph-accuracy vs epoch for test and validation](img/graph_mod2.jpg#center)
 
 # L'envoi du modèle sur la carte STM32L4R9 
 Jusqu'à maintenant nous avons notre modèle avec une accuracy de 94.78. Nous allons maintenant embarquer le modèle sur la carte.
@@ -145,6 +145,9 @@ Pour embarquer le modéle sur la carte STM32 nous avons sauvegarder le modele so
 Afin de tester la sécurité et l'intégrité de notre modéle nous avons appliquée un exemple d’attaque contradictoire à l’aide de l’attaque Fast Gradient Signed Method (FGSM).
 La méthode du signe de gradient rapide fonctionne en utilisant les gradients du réseau de neurones pour créer un exemple contradictoire.  
 
+![attaques FGSM](img/attaqueFGSM.png#center)
+
+La prédiction avant l’attaque était 2 c'est-à-dire la bouteille est à 80 % mais on appliquons différentes valeurs de epsilons la prédiction change et le modèle se trompe .Le modèle résiste aux attaques avec des eps < 0.7 mais au delà de cette valeur il se trompe. cela vient comme un compromis qui fait que les perturbations deviennent plus identifiables.Cela est dû peut-être à la taille de l’image qui est petite donc il faut utiliser des grandes valeurs de eps pour que le modèle identifie la différence . 
 
 
 
