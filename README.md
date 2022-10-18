@@ -157,3 +157,8 @@ Epoch 49/50
 99/99 [==============================] - 23s 234ms/step - loss: 0.0602 - accuracy: 0.9801 - val_loss: 0.2776 - val_accuracy: 0.9355
 Epoch 50/50
 99/99 [==============================] - 23s 234ms/step - loss: 0.0473 - accuracy: 0.9836 - val_loss: 0.2151 - val_accuracy: 0.9479
+```
+
+## Model Accuracy
+Apres qy’on a tester le model, on a eu une accuracy de 94.78 % et pas d’overfitting.
+Alors, on a sauvegarder notre modele en “model.h5” ainsi que nos images et labels de tes (x_test.npy et y_test.npy) pour pouvoir les tester sur la STM32.
