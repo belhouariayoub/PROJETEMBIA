@@ -251,10 +251,22 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 1,
    "id": "3ee30588",
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "ename": "NameError",
+     "evalue": "name 'tf' is not defined",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+      "\u001b[1;32m~\\AppData\\Local\\Temp\\ipykernel_6328\\3924757295.py\u001b[0m in \u001b[0;36m<module>\u001b[1;34m\u001b[0m\n\u001b[0;32m      1\u001b[0m \u001b[1;32mif\u001b[0m \u001b[0m__name__\u001b[0m \u001b[1;33m==\u001b[0m \u001b[1;34m'__main__'\u001b[0m\u001b[1;33m:\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m      2\u001b[0m \u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m----> 3\u001b[1;33m     \u001b[0mtf\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mautograph\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mset_verbosity\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;36m0\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m      4\u001b[0m     \u001b[0mnb_inference\u001b[0m \u001b[1;33m=\u001b[0m \u001b[1;36m1\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m      5\u001b[0m     \u001b[1;32mwith\u001b[0m \u001b[0mserial\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mSerial\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;34m\"COM6\"\u001b[0m\u001b[1;33m,\u001b[0m \u001b[1;36m115200\u001b[0m\u001b[1;33m,\u001b[0m \u001b[0mtimeout\u001b[0m\u001b[1;33m=\u001b[0m\u001b[1;36m1\u001b[0m\u001b[1;33m)\u001b[0m \u001b[1;32mas\u001b[0m \u001b[0mser\u001b[0m\u001b[1;33m:\u001b[0m \u001b[1;31m# COM5 for H743 (nucleo) and COM6 for F411 (Nucleo)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n",
+      "\u001b[1;31mNameError\u001b[0m: name 'tf' is not defined"
+     ]
+    }
+   ],
    "source": [
     "if __name__ == '__main__':\n",
     "\n",
@@ -280,7 +292,7 @@
     "            t1 = MODEL_set(used_model)\n",
     "            t1.set_dataset_from_xtest(path_xtest, path_ytest)\n",
     "            t1.pick_rand_value_from_xtest()\n",
-    "            #t1.get_prediction()\n",
+    "            t1.get_prediction()\n",
     "            print (\"\\n done\\n\")\n",
     "    \n",
     "            send_NN_inputs_to_STM32(t1, ser)\n",
@@ -303,12 +315,24 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 3,
    "id": "d2300787",
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "ename": "NameError",
+     "evalue": "name 'MODEL_set' is not defined",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+      "\u001b[1;32m~\\AppData\\Local\\Temp\\ipykernel_6328\\3087798072.py\u001b[0m in \u001b[0;36m<module>\u001b[1;34m\u001b[0m\n\u001b[1;32m----> 1\u001b[1;33m \u001b[0mMODEL_set\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mt1\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mget_prediction\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m      2\u001b[0m \u001b[1;33m\u001b[0m\u001b[0m\n",
+      "\u001b[1;31mNameError\u001b[0m: name 'MODEL_set' is not defined"
+     ]
+    }
+   ],
    "source": [
-    "\n",
+    "MODEL_set.t1.get_prediction()\n",
     "\n"
    ]
   },

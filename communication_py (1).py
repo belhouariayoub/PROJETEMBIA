@@ -248,18 +248,18 @@ if __name__ == '__main__':
             t1 = MODEL_set(used_model)
             t1.set_dataset_from_xtest(path_xtest, path_ytest)
             t1.pick_rand_value_from_xtest()
-            #t1.get_prediction()
+            
             print ("\n done\n")
     
             send_NN_inputs_to_STM32(t1, ser)
             print("---------\n")
-    
+            #t1.get_prediction()
             if(t1.match_pred_label() == 1):
                 nb_error += 1
                 errored_elem.append(t1)
     
             i = i + 1
-    
+            #
             del t1
     
         print ('\n')
@@ -267,10 +267,10 @@ if __name__ == '__main__':
         print ("\nAll inferences have been effected")
         print ("\nNumber of error reported according to y_test: "+str(nb_error))
         ser.close()
+        
 
 
 # In[11]:
-
 
 
 
