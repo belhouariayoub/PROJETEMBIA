@@ -25,9 +25,10 @@ L'augmentation des images est effectuée aussi  avant la formation du réseau ne
 
 # Modele
 
-Nous avons monté et entraîné un réseau de neurones convolutifs à l'aide de ce jeu de données afin de montrer un exemple des performances qui peuvent être atteintes.
+Nous avons monté et entraîné un réseau de neurones convolutifs à l'aide de ce jeu de données afin de montrer un exemple des performances qui peuvent être atteintes.La précision et la perte obtenues sont également rapportées . 
 
 ## Modele V1
+La structure de réseau est composée de 4 couches convolutionnelles 2D avec un filtre de taille 3 × 3 suivi d'une fonction d'activation ReLu avec l'utilisation du pooling max 2D avec une taille de pool 2 × 2 et des Dropout. La figure ci-dessous illustre le résumé du modèle Keras avec le nombre de paramètres. Enfin la fonction d'activation Softmax pour classer les images d'entraînement fournies en entrée en 4 classes de niveau de remplissage. 
 
 ```
 Model: "sequential_38"
