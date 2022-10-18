@@ -128,7 +128,7 @@ Epoch 50/50
 ```
 
 L'accuracy a augmenter à 94.78 % . Le modéle est donc parfait puisqu'il n'ya pas d'overfitting.
-![graph-accuracy vs epoch for test and validation](img/graph_mod2.jpg)
+![graph-accuracy vs epoch for test and validation](img/graph_mod2.jpg#center)
 
 # L'envoi du modèle sur la carte STM32L4R9 
 Jusqu'à maintenant nous avons notre modèle avec une accuracy de 94.78. Nous allons maintenant embarquer le modèle sur la carte.
