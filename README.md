@@ -1,8 +1,8 @@
-— 
+---
 # Projet IA Embarqué
-## Ayoub BELHOUARI & Elie DAHER
-## 18-10-2022
-—
+   ### Ayoub BELHOUARI & Elie DAHER
+   #### 18-10-2022
+---
 
 # Introduction
 Notre projet consiste à faire un aysteme d'intelligence artificielle quui va detecter le niveau de liquide (chloride de sodium) dans les boteilles pour la surveillance du niveau de remplissage.
