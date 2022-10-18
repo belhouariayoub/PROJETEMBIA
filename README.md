@@ -149,8 +149,8 @@ Ensuite, on valide sur le PC (Validate on Desktop) et on optient la mëme "Accur
 Les deux figures ci-dessous montre le graphique de notre modèle.
 
 <p align="center">
-  <img src="img/graph1" />
-  <img src="img/graph2" />
+  <img src="img/graph1.jpg" />
+  <img src="img/graph2.jpg" />
 </p>
 
 
