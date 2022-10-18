@@ -149,7 +149,9 @@ La méthode du signe de gradient rapide fonctionne en utilisant les gradients du
 
 La prédiction avant l’attaque était 2 c'est-à-dire la bouteille est à 80 % mais on appliquons différentes valeurs de epsilons la prédiction change et le modèle se trompe .Le modèle résiste aux attaques avec des eps < 0.7 mais au delà de cette valeur il se trompe. cela vient comme un compromis qui fait que les perturbations deviennent plus identifiables.Cela est dû peut-être à la taille de l’image qui est petite donc il faut utiliser des grandes valeurs de eps pour que le modèle identifie la différence . 
 
+
+
+<p align="center">
 ![attaques FGSM avec différentes valeurs de eps](img/4imageepsdiffs.png#center)
-
-
+</p>
 
