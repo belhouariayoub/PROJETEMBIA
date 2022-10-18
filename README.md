@@ -24,7 +24,11 @@ Ce code python transforme aussi les images en negative pour avoir de meilleurs d
 L'augmentation des images est effectuée aussi  avant la formation du réseau neuronal. La procédure agit sur certains paramètres tels que l'angle de rotation de 40°, le décalage en largeur de 0,2, le décalage en hauteur de 0,2, le zoom de 0,2 et le retournement horizontal autorisé. Il convient de noter que la classe ne renvoie que les images augmentées et non les images originales. Comme le nombre d'échantillons dans l'ensemble de données a augmenté, on s'attend à ce que le modèle puisse atteindre une meilleure précision dans des conditions de travail plus générales. 
 
 # Modele
+
+Nous avons monté et entraîné un réseau de neurones convolutifs à l'aide de ce jeu de données afin de montrer un exemple des performances qui peuvent être atteintes.La précision et la perte obtenues sont également rapportées . 
+
 ## Modele V1
+La structure de réseau est composée de 4 couches convolutionnelles 2D avec un filtre de taille 3 × 3 suivi d'une fonction d'activation ReLu avec l'utilisation du pooling max 2D avec une taille de pool 2 × 2 et des Dropout. La figure ci-dessous illustre le résumé du modèle Keras avec le nombre de paramètres. Enfin la fonction d'activation Softmax pour classer les images d'entraînement fournies en entrée en 4 classes de niveau de remplissage. 
 
 ```
 Model: "sequential_38"
