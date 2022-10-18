@@ -112,8 +112,8 @@ Epoch 50/50
 ```
 
 ## Model Accuracy
-Apres qy’on a tester le model, on a eu une accuracy de 94.78 % et pas d’overfitting.
-Alors, on a sauvegarder notre modele en “model.h5” ainsi que nos images et labels de tes (x_test.npy et y_test.npy) pour pouvoir les tester sur la STM32.
+Apres avoir tester le model, L'accuracy du modèle est  94.78 % et d'aprés le graphe on remarque que le modéle n'overfitt pas.
+Afin d'embarquer le modéle sur la carte STM32 nous avons sauvegarder le modele sous format h5 “model.h5” ainsi que les  images et labels pour le test (x_test.npy et y_test.npy).
 
 
 
