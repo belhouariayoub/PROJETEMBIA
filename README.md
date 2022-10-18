@@ -142,7 +142,7 @@ Pour embarquer le modéle sur la carte STM32 nous avons sauvegarder le modele so
 Après, on cré notre network "saline_network" sur *STMCubeIDE* et on analyse notre modèle.
 Les résultats sont indiqués dans la figure ci-dessous:
 <p align="center">
-  <img src="img/modele_cubeAI.jpg" />
+  <img src="img/modele_cubeAI.png" />
 </p>
 On peut voir que notre modèle utilise 1.80MiB/2.00 MiB de notre mémoire flash. Alors, on a pu embarquer notre mdèle sans compression ni pruning!
 Ensuite, on valide sur le PC (Validate on Desktop) et on optient la mëme "Accuracy" qu'on avait (94.79%).
