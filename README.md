@@ -144,9 +144,14 @@ Les résultats sont indiqués dans la figure ci-dessous:
 <p align="center">
   <img src="img/modele_cubeAI.png" />
 </p>
-On peut voir que notre modèle utilise 1.80MiB/2.00 MiB de notre mémoire flash. Alors, on a pu embarquer notre mdèle sans compression ni pruning!
+On peut voir que notre modèle utilise 1.80MiB/2.00 MiB de notre mémoire flash. Alors, on a pu embarquer notre mdèle sans compression ni pruning! 
 Ensuite, on valide sur le PC (Validate on Desktop) et on optient la mëme "Accuracy" qu'on avait (94.79%).
+Les deux figures ci-dessous montre le graphique de notre modèle.
 
+<p align="center">
+  <img src="img/graph1" />
+  <img src="img/graph2" />
+</p>
 
 
 
