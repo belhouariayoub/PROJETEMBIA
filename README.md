@@ -6,7 +6,7 @@
 
 # Introduction
 
-Ce projet décrit l'implémentation d'un modèle de réseaux neurone basés sur la base de donnée Salinebottle sur UNE carte STM Discovery (STM32L4R9). Il contient l'archive du projet et les scripts python pour construire le modèle et communiquer avec la carte. 
+Ce projet décrit l'implémentation d'un modèle de réseau de neurones basés sur la base de donnée Salinebottle sur UNE carte STM Discovery (STM32L4R9). Il contient l'archive du projet et les scripts python pour construire le modèle et communiquer avec la carte. 
 L'objectif c'est de detecter le niveau de liquide (chloride de sodium) dans les boteilles pour la surveillance du niveau de remplissage avec une IA embarquée.
 
 # Datasets
