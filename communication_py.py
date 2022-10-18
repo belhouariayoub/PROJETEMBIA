@@ -142,6 +142,7 @@ def send_NN_inputs_to_STM32(MODEL_set, ser):
     plt.show()
     while(input_sent == False):
         
+        
         for k in range(3):
             for i in range(64):
                 for j in range(64):
