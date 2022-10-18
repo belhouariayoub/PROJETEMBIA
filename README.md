@@ -17,8 +17,9 @@ L'ensemble de données proposé consiste en une archive de 4217 images.
 
 ![graph-accuracy vs epoch for test and validation](img/contents_of_data.jpeg#center)
 
-Les images de la dataset seront transformée en vecteur numpy array de taille (4217, 64, 64, 3).
-Ces donnees sont apres divisees en train et test sets avec lesquelles on va entrainer notre modele.
+Le fichier Dataprocessing.ipynb fourni dans le répertoire  est utile pour construire le pipeline logiciel qui opère sur l'ensemble de données. Ce pipeline manipule les images, construit les structures appropriées pour accueillir l'ensemble de données redimensionné et la procédure  de redimensionnement de 3456 × 3456 pixels de résolution à 64 × 64.Il convertit aussi les images à des vecteur numpy array pour l'entrainement . 
+Ces donnees seront diviser en train et test sets avec lesquelles nous allons entrainer et tester le modèle.(les fichiet X_org,Y_org et X_test,Y_test).
+
 Pour notre modele, il etait conseiller de transformer les images en negative pour avoir de meilleurs detections de niveau.
 Apres, on a fait la data augmentation des donnes pour generer plusieurs variations de chaque image et mieux generaliser notre modele.
  
@@ -62,7 +63,6 @@ Trainable params: 7,440,932
 Non-trainable params: 0
 ```
 Ce modele avait une accuracy de 88.06% et il avait un peut overfit comme le montre le graph de la figure ci-dessous:
-
 ![graph-accuracy vs epoch for test and validation](img/graph_mod1.jpg)
 
 ```
@@ -121,9 +121,6 @@ Epoch 50/50
 
 ## Model Accuracy
 Apres avoir tester le model, L'accuracy du modèle est  94.78 % et d'aprés le graphe on remarque que le modéle n'overfitt pas.
-
-![graph-accuracy vs epoch for test and validation](img/graph_mod2.jpg)
-
 Afin d'embarquer le modéle sur la carte STM32 nous avons sauvegarder le modele sous format h5 “model.h5” ainsi que les  images et labels pour le test (x_test.npy et y_test.npy).
 
 
