@@ -148,7 +148,7 @@ L'analyse notre modèle donne les résultats indiqués dans la figure ci-dessous
   <img src="img/modele_cubeAI.png" />
 </p>
 
-Nous remarquons que le modèle utilise **1.80MiB/2.00 MiB** de la mémoire flash et **160.98 KiB/640.00 KiB** de la RAM Ce qui implique que notre modèle est emarquable sur la carte sans aucune problème c'est-è-dire sans compression ni pruning!\
+Nous remarquons que le modèle utilise **1.80MiB/2.00 MiB** de la mémoire flash et **160.98 KiB/640.00 KiB** de la RAM Ce qui montre que notre modèle est emarquable sur la carte sans aucune problème c'est-è-dire sans compression ni pruning!\
 Ensuite, on valide sur le PC (*Validate on desktop*) et on optient la même *"Accuracy"* qu'on avait (94.79%).\
 Les deux figures ci-dessous montrent le graphique de notre modèle.
 
