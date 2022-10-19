@@ -29,7 +29,8 @@ Nous avons monté et entraîné un réseau de neurones convolutifs à l'aide de 
 Le fichier model.ipynb décrit les différentes étapes parcourus .
 
 ## Modèle V1
-La structure de réseau est composée de 4 couches convolutionnelles 2D avec un filtre de taille 3 × 3 suivi d'une fonction d'activation ReLu avec l'utilisation du pooling max 2D avec une taille de pool 2 × 2 et des Dropout. La figure ci-dessous illustre le résumé du modèle Keras avec le nombre de paramètres. Enfin dans la derniere couche l'utilisation de la fonction d'activation Softmax est un choix judicieux pour classer les images d'entraînement fournies en entrée en 4 classes de niveau de remplissage. 
+La structure de réseau est composée de 4 couches convolutionnelles 2D avec un filtre de taille 3 × 3 suivi d'une fonction d'activation ReLu avec l'utilisation du pooling max 2D avec une taille de pool 2 × 2 et des Dropout. \
+La figure ci-dessous illustre le résumé du modèle Keras avec le nombre de paramètres. Enfin dans la derniere couche l'utilisation de la fonction d'activation Softmax est un choix judicieux pour classer les images d'entraînement fournies en entrée en 4 classes de niveau de remplissage. 
 
 ```
 Model: "sequential_38"
@@ -138,14 +139,16 @@ L'accuracy a augmenter à 94.78 % . Le modéle est donc parfait puisqu'il n'ya p
 
 # L'envoi du modèle sur la carte STM32L4R9 
 Jusqu'à maintenant nous avons notre modèle avec une accuracy de 94.78. Nous allons maintenant embarquer le modèle sur la carte.
-Pour embarquer le modéle sur la carte STM32 nous avons sauvegarder le modele sous format h5 “model.h5” ainsi que les images et les labels .(x_test.npy et y_test.npy).
+Pour embarquer le modéle sur la carte STM32 nous avons sauvegarder le modele sous format h5 “model.h5” ainsi que les images et les labels .(x_test.npy et y_test.npy).\
 Après, on cré notre network "saline_network" sur *STMCubeIDE* et on analyse notre modèle.
 Les résultats sont indiqués dans la figure ci-dessous:
+
 <p align="center">
   <img src="img/modele_cubeAI.png" />
 </p>
-On peut voir que notre modèle utilise 1.80MiB/2.00 MiB de notre mémoire flash. Alors, on a pu embarquer notre mdèle sans compression ni pruning! 
-Ensuite, on valide sur le PC (Validate on Desktop) et on optient la mëme "Accuracy" qu'on avait (94.79%).
+
+On peut voir que notre modèle utilise 1.80MiB/2.00 MiB de notre mémoire flash. Alors, on a pu embarquer notre mdèle sans compression ni pruning!\
+Ensuite, on valide sur le PC (Validate on Desktop) et on optient la mëme "Accuracy" qu'on avait (94.79%).\
 Les deux figures ci-dessous montre le graphique de notre modèle.
 
 <p align="center">
@@ -155,27 +158,27 @@ Les deux figures ci-dessous montre le graphique de notre modèle.
 
 # Tester le Modèle sur la STM32
 ## Main.c
-Dans ce fichier, il faut juste blocker l'initialisation du port usb_otg et le SDMCC1 pour ne pas blocker notre UART2 et la boucle principale va appeler le MX_X_CUBE_AI_Process() en permanence.
+Dans ce fichier, il faut juste blocker l'initialisation du port usb_otg et le SDMCC1 pour ne pas blocker notre UART2 et la boucle principale va appeler le MX_X_CUBE_AI_Process( ) en permanence.
 ## App_x-cube-ai.c
 Dans ce fichier, se trouve tout le code principale pour tourner les inferences sur la carte et c'est là où les modifications vont se faire.
-D'abord, il faut declarer notre HandlerTypeDef pour le UART2 (*huart2*).
+D'abord, il faut declarer notre HandlerTypeDef pour le UART2 (*huart2*).\
 Après, il y a les 4 fonctions principales: *MX_X_CUBE_AI_Process*, *acquire_and_process_data(in_data)*, *ai_run()* et *post_process(out_data)*.
 
-### MX_X_CUBE_AI_Process
+### MX_X_CUBE_AI_Process( )
 
-C'est la fonction appeléedans le main et qui va gérer le code pour faire tourner le modèle.
+C'est la fonction appeléedans le main et qui va gérer le code pour faire tourner le modèle.\
 On déclare d'abord les buffers pour les données d'entrée et sorties
 ``` 
   uint8_t *in_data = NULL;
   uint8_t *out_data = NULL;
 ```
-Ensuite, on gère la syncronisation entre le fichier python et la STM32 en attendant le message "sync" et puis en renvoyant un ack de valeur "101".
+Ensuite, on gère la syncronisation entre le fichier python et la STM32 en attendant le message "sync" et puis en renvoyant un ack de valeur "101".\
 Suite à la syncronisation, on lance la fonction *acquire_and_process_data(in_data[])*. Après, on va lancer notre modèle avec *ai_run()*, et enfin, envoyer le résultat via le UART2 au scripte python avec la fonction *post_process(out_data[])*.
 
 ### -acquire_and_process_data(in_data[])
 
-Cette fonction est responsable de traiter les données: Il faut récupérer notre image du huart2 dans le même ordre qu'on va l'envoyer avec le scripte python c.a.d on envoie les 64x64 pixels de chaque layer de couleur.
-Après, il faut linéariser cette immage dans le tableau data[] en divisant chaque pixel de 32 bits(uint32_t) sur 4 variables de uint8_t.
+Cette fonction est responsable de traiter les données: Il faut récupérer notre image du huart2 dans le même ordre qu'on va l'envoyer avec le scripte python c.a.d on envoie les 64x64 pixels de chaque layer de couleur.\
+Après, il faut linéariser cette immage dans le tableau data[] en divisant chaque pixel de 32 bits(*uint32_t*) sur 4 variables de *uint8_t*.\
 En testant le modele sur la carte, on a constaté qu'il faut linéariser l'image en rangeant pour chaque pixel, les valeurs des 3 layers successivement, puis ligne par ligne. On obtient la boucle suivante:
 ```
 for (z=0; z<3;z++){
@@ -197,19 +200,14 @@ for (z=0; z<3;z++){
 Dans cette fonction, on passe les données traitées à notre *saline_network* et il retourn sa prediction.
 
 ### -post_process(out_data[])
-Quand le modèle termine son inféraence, on va stockées sa sortie dans un tableau de dimension 4 contenant des probabilitées pour chaque classe de résolution *float*. Ces probabilitées seront chargées de la sortie du modèle chacune sur 4 buffer de *uint8_t* et puis linéarisées dans le tableau précédant (*prob_classes[4]*).
+Quand le modèle termine son inféraence, on va stockées sa sortie dans un tableau de dimension 4 contenant des probabilitées pour chaque classe de résolution *float*. Ces probabilitées seront chargées de la sortie du modèle chacune sur 4 buffer de *uint8_t* et puis linéarisées dans le tableau précédant (*prob_classes[4]*).\
 En ce moment, on va envoyer sur l'uart "010" pour notifier le scripte python puis envoyer notre résultat octet par octet sur l'uart.
-Ainsi, l'inférence est terminée!.
+Ainsi, l'inférence est terminée!.\
 *On a due ajouter un délais à la fin de ce process pour pouvoir récupérer les résultats à la fin de l'inférence avant de répéter le process de nouveau.*
 
-
-
-
-
 ## Envoie et réception des images via UART
-le format des images envoyées est (64, 64, 3), alors on va envoyer les 64x64 pixels de chacunes des 3 layers de couleurs.
+L'envoie de données se fait avec le fichier *communication_py.ipynb*. Dans ce fichier, on va créer notre modèle, les x_test et y_test. Puis, on va choisir une image aléatoire et l'afficher avec son label et après syncronisation avec la carte STM32, envoyer cette même image pour que notre modèle la traite. Le format des images envoyées est (64, 64, 3), alors on va envoyer les 64x64 pixels de chacunes des 3 layers de couleurs.
 Dans le fichier de communication, on a accomplit cela dans le "for loop".
-
 ```
 # rgb processing
         for k in range(3):
@@ -219,8 +217,11 @@ Dans le fichier de communication, on a accomplit cela dans le "for loop".
 
         input_sent = True
 ```
-
-
+Quand le modèle termine son inférence, il nous renvoie son résultat et on compare avec le label pour voir la performence de notre modèle.
+<p align="center">
+  <img src="img/inf0.jpg" width=38% />
+  <img src="img/inf2.jpg" width=40% />
+</p>
 
 
 
@@ -235,18 +236,26 @@ Afin de tester la sécurité et l'intégrité de notre modéle nous avons appliq
 La méthode du signe de gradient rapide fonctionne en utilisant les gradients du réseau de neurones pour créer un exemple contradictoire.  
 
 <p align="center">
-  <img src="img/attaqueFGSM.png" />
+  <img src="img/attaqueFGSM.png" width=65% />
 </p>
 
-La prédiction avant l’attaque était 2 c'est-à-dire la bouteille est à 80 % mais on appliquons différentes valeurs de epsilons la prédiction change et le modèle se trompe .Le modèle résiste aux attaques avec des eps < 0.7 mais au delà de cette valeur il se trompe. cela vient comme un compromis qui fait que les perturbations deviennent plus identifiables.Cela est dû peut-être à la taille de l’image qui est petite donc il faut utiliser des grandes valeurs de eps pour que le modèle identifie la différence . 
-
-
+La prédiction avant l’attaque était 2 c'est-à-dire la bouteille est à 80 %. Mais on appliquons différentes valeurs de epsilons, et là, la prédiction change et le modèle se trompe .Le modèle résiste aux attaques avec des eps < 0.7 mais au delà de cette valeur il se trompe (En considérant que pour ces valeurs d'epsilon l'image n'est plus claire pour une personne). Cela vient comme un compromis qui fait que les perturbations deviennent plus identifiables. Cela est dû peut-être à la taille de l’image qui est petite donc il faut utiliser des grandes valeurs de eps pour que le modèle identifie la différence.
 
 <p align="center">
-  <img src="img/4imageepsdiffs.png" />
+  <img src="img/all_eps.jpg" />
 </p>
 
 ## Attaquer le modéle sur la carte STM32 : 
 
-Après avoir appliquer des attaques sur le modèle maintenant nous allons tester la résistance de la carte aux attaques  . 
+Après avoir appliquer des attaques sur le modèle maintenant nous allons tester la résistance de la carte aux attaques,qui, normalement devrait être la même que notre modèle.
+On a sauvegardé les images de l'attaque précédente pour les différents epsilons sous forme d'un "numpy array" et nous avons modifier le script de communication en un nouveau scripte où on envoi à la carte cette photo avec les différents valeurs de epsilons et on a eu les résultats ci-dessous:
+|----|----|
+| epsilon: 0.06  | epsilon: 0.2    |
+|:--------------:|:---------------:|
+![](img/att0.jpg)|![](img/att1.jpg)
+| epsilon: 0.8   | epsilon: 0.9    |
+![](img/att2.jpg)|![](img/att3.jpg)
+
+On peut voir qu'on obtient le meme resultat que précédemment. Et même, quant il se trompe, il se trompe de la même façon.
+
 
