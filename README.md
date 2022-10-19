@@ -246,7 +246,7 @@ La prédiction avant l’attaque était 2 c'est-à-dire la bouteille est à 80 %
 
 Après avoir appliquer des attaques sur le modèle maintenant nous allons tester la résistance de la carte aux attaques,qui, normalement devrait être la même que notre modèle.
 
-Nous avons sauvegardé les images de l'attaque précédente pour les différents epsilons sous forme d'un "numpy array" et nous avons modifier le script de communication en un nouveau scripte  [*communication_Attack.ipynb*](communication_Attack.ipynb) où on envoi à la carte cette photo avec les différents valeurs de epsilons et on a eu les résultats ci-dessous:
+Nous avons sauvegardé les images de l'attaque précédente pour les différents epsilons sous forme d'un "numpy array" et nous avons modifier le script de communication en un nouveau scripte  [*communication_Attack.ipynb*](communication_Attack.ipynb) où on envoi à la carte cette photo avec les différents valeurs de epsilons et nous avons eu les résultats ci-dessous:
 
 | epsilon: 0.06  | epsilon: 0.2    |
 |:--------------:|:---------------:|
@@ -254,8 +254,40 @@ Nous avons sauvegardé les images de l'attaque précédente pour les différents
 | epsilon: 0.8   | epsilon: 0.9    |
 ![](img/att2.jpg)|![](img/att3.jpg)
 
-On peut voir qu'on obtient le meme resultat que précédemment. Et même, quant il se trompe, il se trompe de la même façon.
+On peut voir qu'on obtient le même resultat que précédemment. 
 
 
 # Conclusion
-En conclusion, nous vons bien reçu a embarquer notre modèle fonctionnel sur la carte STM Discovery (STM32L4R9) tout en restant fonctionnel et plutot résistant aux attaques FGSM (pour un seuil de epsilon<0.7). Pour notre système, on a pas pu lancer plusieurs inférences d'un seul coup,Le problème c'est que pour la nouvelle inférence, le scripte re-synchronise avec la carte mais puis la carte bloque et on ne reçoit plus des informations. Alors, pour tester plusieurs images, on a du lancer le script python de nouveau pour chaque novelle image aléatoire choisie, mais cela ne nous a pas empecher à tester plusieurs images sur notre modèle.
+Nous vons réussi à élaborer un modèle  fonctionnel en partant juste de la dataset et de l'embarquer sur la carte STM Discovery (STM32L4R9). Ce modèle résiste aux attaques FGSM (avec un epsilon<0.7).Nous avons rencontré des difficultés pour communiquer la carte avec le code python mais à la fin le problème est résolu.
+On a pas pu lancer plusieurs inférences à la foie c'est-à-dire tester plusieurs images à la fois,Le problème c'est que pour la nouvelle inférence, le scripte re-synchronise avec la carte mais  la carte se bloque et on ne reçoit plus l'informations.
+Ce projet pourra avoir des améliorations dans le future comme la prédiction des images entrés depuis l'écran tactile de la carte *STM32L4R9*.
+En fin , nous somme contents des résultats malgrés les différentes difficultés et contraintes du projet .
+
+
+
+
+# Outils requis 
+
+Afin d'utiliser le projet, les outils suivants sont nécessaires :
+
+- STM32CubeIDE v1.5.0
+- IDE Python (comme jupyter notebook) avec python v3.10 (important)
+- STM32L4R9 Discovery board 
+- USB cable to connect board to computer
+
+# Documentation
+Software:
+- STM32CubeMX:  https://www.st.com/en/development-tools/stm32cubemx.html#documentation
+- Cube-MX-AI:   https://www.st.com/en/embedded-software/x-cube-ai.html#documentation
+- STM32CubeIDE: https://www.st.com/en/development-tools/stm32cubeide.html#documentation
+
+## Version
+**Actual version:** 1
+
+
+
+
+
+
+
+
