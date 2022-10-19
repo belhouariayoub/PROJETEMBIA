@@ -140,8 +140,8 @@ L'accuracy a augmentée à **94.78** % . Le modéle est donc parfait puisqu'il n
 # Embarquer le modèle sur la carte STM32L4R9 
 Jusqu'à maintenant nous avons notre modèle avec une accuracy de **94.78%**. Nous allons maintenant l'embarquer sur la carte.
 Pour embarquer le modéle sur la carte STM32, nous avons sauvegarder le modèle sous format h5  [*model.h5*](model.h5) ainsi que les images et les labels.([*x_test*](x_test.npy) et  [*y_test*](y_test.npy)).\
-Après, on cré notre network *"saline_network"* sur *STMCubeIDE* et on analyse notre modèle.
-Les résultats sont indiqués dans la figure ci-dessous:
+Sur *STMCubeIDE* , nous avons on créé notre network **"saline_network"**. 
+L'analyse notre modèle donne les résultats indiqués dans la figure ci-dessous:
 
 <p align="center">
   <img src="img/modele_cubeAI.png" />
