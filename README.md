@@ -280,11 +280,12 @@ Software:
 - STM32CubeMX:  https://www.st.com/en/development-tools/stm32cubemx.html#documentation
 - Cube-MX-AI:   https://www.st.com/en/embedded-software/x-cube-ai.html#documentation
 - STM32CubeIDE: https://www.st.com/en/development-tools/stm32cubeide.html#documentation
+ 
 Courses :
 - Embedded Neural Network on MCU by mr *O.POTIN* 
 
 -Dataset : 
-[Saline Bottle dataset](https://data.mendeley.com/datasets/9mcj3rvvxb/2)
+- [Saline Bottle dataset](https://data.mendeley.com/datasets/9mcj3rvvxb/2)
 ## Version
 **Actual version:** 1
 
