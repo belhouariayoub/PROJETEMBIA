@@ -17,7 +17,7 @@ L'ensemble de données proposé consiste en une archive de 4217 images.
 
 ![graph-accuracy vs epoch for test and validation](img/contents_of_data.jpeg#center)
 
-Le fichier *Dataprocessing.ipynb* fourni dans le répertoire  est utile pour construire le pipeline logiciel qui opère sur l'ensemble de données. Ce pipeline manipule les images, construit les structures appropriées pour accueillir l'ensemble de données redimensionné et il redimensionne les images de 3456×3456 pixels de résolution à 64×64. Il convertit aussi les images à des vecteur "numpy array" pour l'entraînement . 
+Le fichier [*Dataprocessing.ipynb*](Dataprocessing.ipynb) fourni dans le répertoire  est utile pour construire le pipeline logiciel qui opère sur l'ensemble de données. Ce pipeline manipule les images, construit les structures appropriées pour accueillir l'ensemble de données redimensionné et il redimensionne les images de 3456×3456 pixels de résolution à 64×64. Il convertit aussi les images à des vecteur "numpy array" pour l'entraînement . 
 Ces données seront diviser en *train* et *test* sets avec lesquelles nous allons entrainer et tester le modèle (les fichiers X_org,Y_org et X_test,Y_test).
 Ce code python transforme aussi les images en negative pour avoir de meilleurs detections de niveau.
 
