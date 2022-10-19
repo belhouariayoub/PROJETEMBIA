@@ -149,8 +149,8 @@ L'analyse notre modèle donne les résultats indiqués dans la figure ci-dessous
 </p>
 
 Nous remarquons que le modèle utilise **1.80MiB/2.00 MiB** de la mémoire flash et **160.98 KiB/640.00 KiB** de la RAM Ce qui montre que notre modèle est emarquable sur la carte sans aucune problème c'est-è-dire sans compression ni pruning!\
-Ensuite, on valide sur le PC (*Validate on desktop*) et on optient la même *"Accuracy"* qu'on avait (94.79%).\
-Les deux figures ci-dessous montrent le graphique de notre modèle.
+Ensuite,Le boutton **Validate on desktop** nous permet de voir l'accuracy de notre modèle qui est **94.79%**.\
+Les deux figures ci-dessous montrent le graphique de notre modèle sur la carte.
 
 <p align="center">
   <img src="img/graph1.jpg" />
@@ -158,29 +158,30 @@ Les deux figures ci-dessous montrent le graphique de notre modèle.
 </p>
 
 # Tester le Modèle sur la STM32
+
 ## Main.c
-Dans ce fichier, il faut juste blocker l'initialisation du port usb_otg et le SDMCC1 pour ne pas blocker notre UART2. La boucle principale de ce fichier va appeler le MX_X_CUBE_AI_Process( ) en permanence.
+Dans ce fichier, il faut juste blocker l'initialisation du port usb_otg et le SDMCC1 pour ne pas blocker le fonctionnement de L'UART2. La boucle principale de ce fichier appelle  la fonction **MX_X_CUBE_AI_Process()** en permanence.
 ## App_x-cube-ai.c
-Dans ce fichier, se trouve tout le code principale pour tourner les inférences sur la carte et c'est là où les modifications vont être faites.
+Dans ce fichier, se trouve tout le code principale pour tourner les inférences sur la carte et c'est là où il faut modifier le code pour qu'il puisse acquérir les données et les envoyés vers l'entrée du réseau de neurones.
 D'abord, il faut declarer notre *HandlerTypeDef* pour le UART2 (*huart2*).\
 Après, il y a les 4 fonctions principales: *MX_X_CUBE_AI_Process( )*, *acquire_and_process_data(in_data[ ])*, *ai_run()* et *post_process(out_data[ ])*.
 
 ### MX_X_CUBE_AI_Process( )
 
-C'est la fonction appelée dans le main et qui va gérer le code pour faire tourner le modèle.\
-On déclare d'abord les buffers pour les données d'entrée et sorties:
+C'est la fonction appelée dans le main et c'est elle qui  gére le code pour faire tourner le modèle.\
+Il faut déclare d'abord les buffers pour les données d'entrées et sorties:
 ``` 
   uint8_t *in_data = NULL;
   uint8_t *out_data = NULL;
 ```
-Ensuite, on gère la syncronisation entre le fichier python et la STM32 en attendant le message "sync" et puis en renvoyant un ack de valeur "101".\
-Suite à la syncronisation, on lance la fonction *acquire_and_process_data(in_data[ ])*. Après, on va lancer notre modèle avec *ai_run()*, et enfin, envoyer le résultat via le UART2 au scripte python avec la fonction *post_process(out_data[ ])*.
+Ensuite, on gère la syncronisation entre le fichier python [*communication_py.ipynb*](communication_py.ipynb) et la STM32 en attendant le message "sync" et puis en renvoyant un ack de valeur "101".\
+Suite à la syncronisation, on lance la fonction *acquire_and_process_data(in_data[ ])*. Après, la fonction *ai_run()* lance le modèle, et enfin, envoyer le résultat via le UART2 au scripte python avec la fonction *post_process(out_data[ ])*.
 
 ### -acquire_and_process_data(in_data[])
 
-Cette fonction est responsable de traiter les données: Il faut récupérer notre image du huart2 dans le même ordre qu'on va l'envoyer avec le scripte python c.a.d on envoie les 64x64 pixels de chaque layer de couleur.\
-Après, il faut linéariser cette immage dans le tableau data[ ] en divisant chaque pixel de 32 bits(*uint32_t*) sur 4 variables de *uint8_t*.\
-En testant le modèle sur la carte, on a constaté qu'il faut linéariser l'image en stockant, pour chaque pixel, les valeurs des 3 layers successivement, puis ligne par ligne. On obtient la boucle suivante:
+Cette fonction est responsable de traiter les données: Il récupére  l'image du huart2 dans le même ordre utilisé pour l'envoyer avec le scripte python c'est-à-dire on envoie les 64x64 pixels de chaque layer de couleur (puisqu'on travaille avec des images couleurs).\
+Après, il faut linéariser cette immage dans le tableau *data[]* en divisant chaque pixel de 32 bits(*uint32_t*) sur 4 variables de *uint8_t*.\
+En testant le modèle sur la carte, on a constaté qu'il faut linéariser l'image en stockant, pour chaque pixel, les valeurs des 3 layers successivement, puis ligne par ligne.Ceci est fait avec la boucle suivante : 
 ```
 for (z=0; z<3;z++){
 		for (i = 0; i < 64; i++){
@@ -198,17 +199,17 @@ for (z=0; z<3;z++){
 ```
 
 ### -ai_run()
-Dans cette fonction, on passe les données traitées à notre *saline_network* et il retourn sa prediction.
+Cette fonction passe les données traitées à notre *saline_network* et il retourn sa prediction.
 
 ### -post_process(out_data[])
 Quand le modèle termine son inférence, on va stocker sa sortie dans un tableau de dimension 4 contenant des probabilitées pour chaque classe de résolution *float*. Ces probabilitées seront chargées de la sortie du modèle chacune sur 4 buffer de *uint8_t* et puis linéarisées dans le tableau précédant (*prob_classes[4]*).\
-En ce moment, on va envoyer sur l'uart "010" pour notifier le scripte python qu'on a terminé, puis envoyer notre résultat (octet par octet) sur l'uart.\
+Après, on envoie sur l'uart "010" pour notifier le scripte python qu'on a terminé, puis envoyer notre résultat (octet par octet) sur l'uart.\
 Ainsi, l'inférence est terminée!.\
-*On a due ajouter un délais à la fin de ce process pour pouvoir récupérer les résultats à la fin de l'inférence avant de répéter le process de nouveau. (On a constaté ce problème en mettant un point d'arrêt)*
+*On a due ajouter un délais à la fin de ce process pour pouvoir récupérer les résultats à la fin de l'inférence avant de répéter le process de nouveau. (On a constaté ce problème en mettant un point d'arrêt avec le mode debug de STM32CubeIDE)*
 
 ## Envoie et réception des images via UART
-L'envoie de données se fait avec le fichier *communication_py.ipynb*. Dans ce fichier, on va créer notre modèle, les *x_test* et *y_test*. Puis, on va choisir une image aléatoire et l'afficher avec son label, et après syncronisation avec la carte STM32, envoyer cette même image pour que notre modèle la traite. Le format des images envoyées est (64, 64, 3), alors on va envoyer les 64x64 pixels de chacunes des 3 layers de couleurs.
-Dans le fichier de communication, on a accomplit cela dans les boucles suivantes:
+L'envoie des données se fait avec le fichier [*communication_py.ipynb*](communication_py.ipynb). Dans ce fichier,nous avons créé notre modèle, les *x_test* et *y_test*. Puis, nous avons choisi une image aléatoire et l'afficher avec son label, et après la syncronisation avec la carte STM32, envoyè cette même image pour que notre modèle la traite. Le format des images envoyées est *(64, 64, 3)*. après nous avons envoyè les 64x64 pixels de chacunes des 3 layers de couleurs.
+Dans le fichier de communication,nous avons utilisé cette boucle pour envoyer tous les pixels de l'image:
 ```
 # rgb processing
         for k in range(3):
@@ -218,7 +219,7 @@ Dans le fichier de communication, on a accomplit cela dans les boucles suivantes
 
         input_sent = True
 ```
-Quand le modèle termine son inférence, il nous renvoie son résultat et on compare avec le label pour voir la performence de notre modèle.
+Quand le modèle termine son inférence, il nous renvoie son résultat et on la compare avec le label pour voir la performence de notre modèle.
 On constate que la prédiction du modèle embarqué correspond aux labels de chaque image.
 
 <p align="center">
@@ -244,7 +245,8 @@ La prédiction avant l’attaque était 2 c'est-à-dire la bouteille est à 80 %
 ## Attaquer le modéle sur la carte STM32 : 
 
 Après avoir appliquer des attaques sur le modèle maintenant nous allons tester la résistance de la carte aux attaques,qui, normalement devrait être la même que notre modèle.
-On a sauvegardé les images de l'attaque précédente pour les différents epsilons sous forme d'un "numpy array" et nous avons modifier le script de communication en un nouveau scripte où on envoi à la carte cette photo avec les différents valeurs de epsilons et on a eu les résultats ci-dessous:
+
+Nous avons sauvegardé les images de l'attaque précédente pour les différents epsilons sous forme d'un "numpy array" et nous avons modifier le script de communication en un nouveau scripte  [*communication_Attack.ipynb*](communication_Attack.ipynb) où on envoi à la carte cette photo avec les différents valeurs de epsilons et on a eu les résultats ci-dessous:
 
 | epsilon: 0.06  | epsilon: 0.2    |
 |:--------------:|:---------------:|
