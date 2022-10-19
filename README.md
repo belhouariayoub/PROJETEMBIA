@@ -9,28 +9,28 @@
 Ce projet décrit l'implémentation d'un modèle de réseau de neurones basés sur la base de donnée Salinebottle sur unce carte STM Discovery (STM32L4R9). Il contient l'archive du projet et les scripts python pour construire le modèle et communiquer avec la carte. 
 L'objectif c'est de detecter le niveau de liquide (chloride de sodium) dans les boteilles pour la surveillance du niveau de remplissage avec une IA embarquée.
 
-# Datasets
+# Dataset
 
-La dataset a été fournit par ST,elle contient des photos des bouteilles prisent de differents angles et avec des niveaux de liquides differents reparties dans 4 dossiers differents (‘sal_data_100’, ‘sal_data_50’, ‘sal_data_80’, ‘sal_data_empty’).
+La dataset a été fournit par ST. Elle contient des photos des bouteilles prisent de differents angles et avec des niveaux de liquides differents reparties dans 4 dossiers differents (‘sal_data_100’, ‘sal_data_50’, ‘sal_data_80’, ‘sal_data_empty’).
 Les données d'image, pour chaque niveau de remplissage de la bouteille, fournissent différentes perspectives, conditions d'éclairage, mise au point sur la bouteille, arrière-plan. Ces éléments sont utiles pour vérifier l'évidence visuelle du niveau de liquide salin à l'intérieur de la bouteille.
 L'ensemble de données proposé consiste en une archive de 4217 images.
 
 ![graph-accuracy vs epoch for test and validation](img/contents_of_data.jpeg#center)
 
-Le fichier Dataprocessing.ipynb fourni dans le répertoire  est utile pour construire le pipeline logiciel qui opère sur l'ensemble de données. Ce pipeline manipule les images, construit les structures appropriées pour accueillir l'ensemble de données redimensionné et il redimensione les images de 3456 × 3456 pixels de résolution à 64 × 64.Il convertit aussi les images à des vecteur numpy array pour l'entraînement . 
-Ces donnees seront diviser en train et test sets avec lesquelles nous allons entrainer et tester le modèle(les fichiers X_org,Y_org et X_test,Y_test).
+Le fichier *Dataprocessing.ipynb* fourni dans le répertoire  est utile pour construire le pipeline logiciel qui opère sur l'ensemble de données. Ce pipeline manipule les images, construit les structures appropriées pour accueillir l'ensemble de données redimensionné et il redimensionne les images de 3456×3456 pixels de résolution à 64×64. Il convertit aussi les images à des vecteur "numpy array" pour l'entraînement . 
+Ces données seront diviser en *train* et *test* sets avec lesquelles nous allons entrainer et tester le modèle (les fichiers X_org,Y_org et X_test,Y_test).
 Ce code python transforme aussi les images en negative pour avoir de meilleurs detections de niveau.
 
-L'augmentation des images est effectuée aussi avant la formation du réseau neuronal. La procédure agit sur certains paramètres tels que l'angle de rotation de 40°, le décalage en largeur de 0,2, le décalage en hauteur de 0,2, le zoom de 0,2 et le retournement horizontal autorisé. Il convient de noter que la classe ne renvoie que les images augmentées et non les images originales. Comme le nombre d'échantillons dans l'ensemble de données a augmenté, on s'attend à ce que le modèle puisse atteindre une meilleure précision dans des conditions de travail plus générales. 
+L'augmentation des images est effectuée aussi avant la formation du réseau neuronal. La procédure agit sur certains paramètres tels que l'angle de rotation de 40°, le décalage en largeur de 0,2, le décalage en hauteur de 0,2, le *zoom* de 0,2 et le retournement horizontal autorisé. Il convient de noter que la classe ne renvoie que les images augmentées et non les images originales. Comme le nombre d'échantillons dans l'ensemble de données a augmenté, on s'attend à ce que le modèle puisse atteindre une meilleure précision dans des conditions de travail plus générales. 
 
 # Modèle
 
-Nous avons monté et entraîné un réseau de neurones convolutifs à l'aide de ce jeu de données afin de montrer un exemple des performances qui peuvent être atteintes.La précision et la perte obtenues sont également rapportées . 
-Le fichier model.ipynb décrit les différentes étapes parcourus .
+Nous avons monté et entraîné un réseau de neurones convolutifs à l'aide de ce jeu de données afin de montrer un exemple des performances qui peuvent être atteintes. La précision et la perte obtenues sont également rapportées. 
+Le fichier *model.ipynb* décrit les différentes étapes parcourus .
 
 ## Modèle V1
-La structure de réseau est composée de 4 couches convolutionnelles 2D avec un filtre de taille 3 × 3 suivi d'une fonction d'activation ReLu avec l'utilisation du pooling max 2D avec une taille de pool 2 × 2 et des Dropout. \
-La figure ci-dessous illustre le résumé du modèle Keras avec le nombre de paramètres. Enfin dans la derniere couche l'utilisation de la fonction d'activation Softmax est un choix judicieux pour classer les images d'entraînement fournies en entrée en 4 classes de niveau de remplissage. 
+La structure de réseau est composée de 4 couches convolutionnelles 2D avec un filtre de taille 3×3 suivi d'une fonction d'activation *ReLu* avec l'utilisation du pooling max 2D avec une taille de pool 2×2 et des Dropout. \
+La figure ci-dessous illustre le résumé du modèle Keras avec le nombre de paramètres. Enfin dans la dernière couche, l'utilisation de la fonction d'activation *Softmax* est un choix judicieux pour classer les images d'entraînement, fournies en entrée, en 4 classes de niveau de remplissage. 
 
 ```
 Model: "sequential_38"
@@ -75,7 +75,7 @@ L'accuracy est de 88.06% avec un overfit comme le montre le graph de la figure c
 </p>
 
 ## Modèle V2
-Afin d'améliorer l'accuracy de notre modéle nous avons utilisé à la place du Droupout normal Le Spatial Dropout car ce dernier donne des meilleures résultats avec les réseaux convolutifs .Nous avons auss reduit le nombre d’entrèes après l’aplanissement du modele (flatten) de 512 à 128.La réduction du nombre de paramètres permet aussi de réduire la taille du modéle et il le rend embarquable .  
+Afin d'améliorer l'accuracy de notre modèle, nous avons utilisé à la place du *Droupout* normal, Le *Spatial Dropout* car ce dernier, donne des meilleures résultats avec les réseaux convolutifs. Nous avons aussi reduit le nombre d’entrèes après l’aplanissement du modele (flatten) de 512 à 128. La réduction du nombre de paramètres permet aussi de réduire la taille du modéle et il le rend embarquable .  
 
 ```
 Model: "sequential_1"
@@ -131,25 +131,25 @@ Epoch 50/50
 99/99 [==============================] - 23s 234ms/step - loss: 0.0473 - accuracy: 0.9836 - val_loss: 0.2151 - val_accuracy: 0.9479
 ```
 
-L'accuracy a augmenter à 94.78 % . Le modéle est donc parfait puisqu'il n'ya pas d'overfitting.
+L'accuracy a augmentée à 94.78 % . Le modéle est donc parfait puisqu'il n'ya pas d'overfitting.
 
 <p align="center">
   <img src="img/graph_mod2.jpg" />
 </p>
 
-# L'envoi du modèle sur la carte STM32L4R9 
-Jusqu'à maintenant nous avons notre modèle avec une accuracy de 94.78. Nous allons maintenant embarquer le modèle sur la carte.
-Pour embarquer le modéle sur la carte STM32 nous avons sauvegarder le modele sous format h5 “model.h5” ainsi que les images et les labels .(x_test.npy et y_test.npy).\
-Après, on cré notre network "saline_network" sur *STMCubeIDE* et on analyse notre modèle.
+# Embarquer le modèle sur la carte STM32L4R9 
+Jusqu'à maintenant nous avons notre modèle avec une accuracy de 94.78%. Nous allons maintenant embarquer le modèle sur la carte.
+Pour embarquer le modéle sur la carte STM32, nous avons sauvegarder le modele sous format h5 *“model.h5”* ainsi que les images et les labels.(*x_test.npy* et *y_test.npy*).\
+Après, on cré notre network *"saline_network"* sur *STMCubeIDE* et on analyse notre modèle.
 Les résultats sont indiqués dans la figure ci-dessous:
 
 <p align="center">
   <img src="img/modele_cubeAI.png" />
 </p>
 
-On peut voir que notre modèle utilise 1.80MiB/2.00 MiB de notre mémoire flash. Alors, on a pu embarquer notre mdèle sans compression ni pruning!\
-Ensuite, on valide sur le PC (Validate on Desktop) et on optient la mëme "Accuracy" qu'on avait (94.79%).\
-Les deux figures ci-dessous montre le graphique de notre modèle.
+On peut voir que notre modèle utilise 1.80MiB/2.00 MiB de notre mémoire flash et 160.98 KiB/640.00 KiB de la RAM. Alors, on a pu embarquer notre mdèle sans compression ni pruning!\
+Ensuite, on valide sur le PC (*Validate on desktop*) et on optient la même *"Accuracy"* qu'on avait (94.79%).\
+Les deux figures ci-dessous montrent le graphique de notre modèle.
 
 <p align="center">
   <img src="img/graph1.jpg" />
@@ -158,28 +158,28 @@ Les deux figures ci-dessous montre le graphique de notre modèle.
 
 # Tester le Modèle sur la STM32
 ## Main.c
-Dans ce fichier, il faut juste blocker l'initialisation du port usb_otg et le SDMCC1 pour ne pas blocker notre UART2 et la boucle principale va appeler le MX_X_CUBE_AI_Process( ) en permanence.
+Dans ce fichier, il faut juste blocker l'initialisation du port usb_otg et le SDMCC1 pour ne pas blocker notre UART2. La boucle principale de ce fichier va appeler le MX_X_CUBE_AI_Process( ) en permanence.
 ## App_x-cube-ai.c
-Dans ce fichier, se trouve tout le code principale pour tourner les inferences sur la carte et c'est là où les modifications vont se faire.
-D'abord, il faut declarer notre HandlerTypeDef pour le UART2 (*huart2*).\
-Après, il y a les 4 fonctions principales: *MX_X_CUBE_AI_Process*, *acquire_and_process_data(in_data)*, *ai_run()* et *post_process(out_data)*.
+Dans ce fichier, se trouve tout le code principale pour tourner les inférences sur la carte et c'est là où les modifications vont être faites.
+D'abord, il faut declarer notre *HandlerTypeDef* pour le UART2 (*huart2*).\
+Après, il y a les 4 fonctions principales: *MX_X_CUBE_AI_Process( )*, *acquire_and_process_data(in_data[ ])*, *ai_run()* et *post_process(out_data[ ])*.
 
 ### MX_X_CUBE_AI_Process( )
 
-C'est la fonction appeléedans le main et qui va gérer le code pour faire tourner le modèle.\
-On déclare d'abord les buffers pour les données d'entrée et sorties
+C'est la fonction appelée dans le main et qui va gérer le code pour faire tourner le modèle.\
+On déclare d'abord les buffers pour les données d'entrée et sorties:
 ``` 
   uint8_t *in_data = NULL;
   uint8_t *out_data = NULL;
 ```
 Ensuite, on gère la syncronisation entre le fichier python et la STM32 en attendant le message "sync" et puis en renvoyant un ack de valeur "101".\
-Suite à la syncronisation, on lance la fonction *acquire_and_process_data(in_data[])*. Après, on va lancer notre modèle avec *ai_run()*, et enfin, envoyer le résultat via le UART2 au scripte python avec la fonction *post_process(out_data[])*.
+Suite à la syncronisation, on lance la fonction *acquire_and_process_data(in_data[ ])*. Après, on va lancer notre modèle avec *ai_run()*, et enfin, envoyer le résultat via le UART2 au scripte python avec la fonction *post_process(out_data[ ])*.
 
 ### -acquire_and_process_data(in_data[])
 
 Cette fonction est responsable de traiter les données: Il faut récupérer notre image du huart2 dans le même ordre qu'on va l'envoyer avec le scripte python c.a.d on envoie les 64x64 pixels de chaque layer de couleur.\
-Après, il faut linéariser cette immage dans le tableau data[] en divisant chaque pixel de 32 bits(*uint32_t*) sur 4 variables de *uint8_t*.\
-En testant le modele sur la carte, on a constaté qu'il faut linéariser l'image en rangeant pour chaque pixel, les valeurs des 3 layers successivement, puis ligne par ligne. On obtient la boucle suivante:
+Après, il faut linéariser cette immage dans le tableau data[ ] en divisant chaque pixel de 32 bits(*uint32_t*) sur 4 variables de *uint8_t*.\
+En testant le modèle sur la carte, on a constaté qu'il faut linéariser l'image en stockant, pour chaque pixel, les valeurs des 3 layers successivement, puis ligne par ligne. On obtient la boucle suivante:
 ```
 for (z=0; z<3;z++){
 		for (i = 0; i < 64; i++){
@@ -200,14 +200,14 @@ for (z=0; z<3;z++){
 Dans cette fonction, on passe les données traitées à notre *saline_network* et il retourn sa prediction.
 
 ### -post_process(out_data[])
-Quand le modèle termine son inféraence, on va stockées sa sortie dans un tableau de dimension 4 contenant des probabilitées pour chaque classe de résolution *float*. Ces probabilitées seront chargées de la sortie du modèle chacune sur 4 buffer de *uint8_t* et puis linéarisées dans le tableau précédant (*prob_classes[4]*).\
-En ce moment, on va envoyer sur l'uart "010" pour notifier le scripte python puis envoyer notre résultat octet par octet sur l'uart.
+Quand le modèle termine son inférence, on va stocker sa sortie dans un tableau de dimension 4 contenant des probabilitées pour chaque classe de résolution *float*. Ces probabilitées seront chargées de la sortie du modèle chacune sur 4 buffer de *uint8_t* et puis linéarisées dans le tableau précédant (*prob_classes[4]*).\
+En ce moment, on va envoyer sur l'uart "010" pour notifier le scripte python qu'on a terminé, puis envoyer notre résultat (octet par octet) sur l'uart.\
 Ainsi, l'inférence est terminée!.\
-*On a due ajouter un délais à la fin de ce process pour pouvoir récupérer les résultats à la fin de l'inférence avant de répéter le process de nouveau.*
+*On a due ajouter un délais à la fin de ce process pour pouvoir récupérer les résultats à la fin de l'inférence avant de répéter le process de nouveau. (On a constaté ce problème en mettant un point d'arrêt)*
 
 ## Envoie et réception des images via UART
-L'envoie de données se fait avec le fichier *communication_py.ipynb*. Dans ce fichier, on va créer notre modèle, les x_test et y_test. Puis, on va choisir une image aléatoire et l'afficher avec son label et après syncronisation avec la carte STM32, envoyer cette même image pour que notre modèle la traite. Le format des images envoyées est (64, 64, 3), alors on va envoyer les 64x64 pixels de chacunes des 3 layers de couleurs.
-Dans le fichier de communication, on a accomplit cela dans le "for loop".
+L'envoie de données se fait avec le fichier *communication_py.ipynb*. Dans ce fichier, on va créer notre modèle, les *x_test* et *y_test*. Puis, on va choisir une image aléatoire et l'afficher avec son label, et après syncronisation avec la carte STM32, envoyer cette même image pour que notre modèle la traite. Le format des images envoyées est (64, 64, 3), alors on va envoyer les 64x64 pixels de chacunes des 3 layers de couleurs.
+Dans le fichier de communication, on a accomplit cela dans les boucles suivantes:
 ```
 # rgb processing
         for k in range(3):
@@ -218,17 +218,12 @@ Dans le fichier de communication, on a accomplit cela dans le "for loop".
         input_sent = True
 ```
 Quand le modèle termine son inférence, il nous renvoie son résultat et on compare avec le label pour voir la performence de notre modèle.
+On constate que la prédiction du modèle embarqué correspond aux labels de chaque image.
+
 <p align="center">
   <img src="img/inf0.jpg" width=38% />
   <img src="img/inf2.jpg" width=40% />
 </p>
-
-
-
-
-
-
-
 
 ## Exemple d'attaque utilisant FGSM : 
 
@@ -249,7 +244,7 @@ La prédiction avant l’attaque était 2 c'est-à-dire la bouteille est à 80 %
 
 Après avoir appliquer des attaques sur le modèle maintenant nous allons tester la résistance de la carte aux attaques,qui, normalement devrait être la même que notre modèle.
 On a sauvegardé les images de l'attaque précédente pour les différents epsilons sous forme d'un "numpy array" et nous avons modifier le script de communication en un nouveau scripte où on envoi à la carte cette photo avec les différents valeurs de epsilons et on a eu les résultats ci-dessous:
-|----|----|
+
 | epsilon: 0.06  | epsilon: 0.2    |
 |:--------------:|:---------------:|
 ![](img/att0.jpg)|![](img/att1.jpg)
