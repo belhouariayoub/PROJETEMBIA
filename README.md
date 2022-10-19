@@ -6,7 +6,7 @@
 
 # Introduction
 
-Ce projet décrit l'implémentation d'un modèle de réseau de neurones basés sur la base de donnée Salinebottle sur unce carte STM Discovery (STM32L4R9). Il contient l'archive du projet et les scripts python pour construire le modèle et communiquer avec la carte. 
+Ce projet décrit l'implémentation d'un modèle de réseau de neurones basés sur la base de donnée Salinebottle sur une carte STM Discovery (STM32L4R9). Il contient l'archive du projet et les scripts python pour construire le modèle et communiquer avec la carte. 
 L'objectif c'est de detecter le niveau de liquide (chloride de sodium) dans les boteilles pour la surveillance du niveau de remplissage avec une IA embarquée.
 
 # Dataset
@@ -254,3 +254,5 @@ On a sauvegardé les images de l'attaque précédente pour les différents epsil
 On peut voir qu'on obtient le meme resultat que précédemment. Et même, quant il se trompe, il se trompe de la même façon.
 
 
+# Conclusion
+En conclusion, nous vons bien reçu a embarquer notre modèle fonctionnel sur la carte STM Discovery (STM32L4R9) tout en restant fonctionnel et plutot résistant aux attaques FGSM (pour un seuil de epsilon<0.7). Pour notre système, on a pas pu lancer plusieurs inférences d'un seul coup,Le problème c'est que pour la nouvelle inférence, le scripte re-synchronise avec la carte mais puis la carte bloque et on ne reçoit plus des informations. Alors, pour tester plusieurs images, on a du lancer le script python de nouveau pour chaque novelle image aléatoire choisie, mais cela ne nous a pas empecher à tester plusieurs images sur notre modèle.
