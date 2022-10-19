@@ -68,14 +68,14 @@ Total params: 7,440,932
 Trainable params: 7,440,932
 Non-trainable params: 0
 ```
-L'accuracy est de 88.06% avec un overfit comme le montre le graph de la figure ci-dessous:
+L'accuracy est de **88.06%** avec un overfit comme le montre le graph de la figure ci-dessous:
 
 <p align="center">
   <img src="img/graph_mod1.jpg" />
 </p>
 
 ## Modèle V2
-Afin d'améliorer l'accuracy de notre modèle, nous avons utilisé à la place du *Droupout* normal, Le *Spatial Dropout* car ce dernier, donne des meilleures résultats avec les réseaux convolutifs. Nous avons aussi reduit le nombre d’entrèes après l’aplanissement du modele (flatten) de 512 à 128. La réduction du nombre de paramètres permet aussi de réduire la taille du modéle et il le rend embarquable .  
+Afin d'améliorer l'accuracy de notre modèle, nous avons utilisé à la place du *Droupout* normal, Le *Spatial Dropout* car ce dernier, permet d'avoir des meilleures résultats avec les réseaux convolutifs. Nous avons aussi reduit le nombre d’entrèes après l’aplanissement du modele (*flatten*) de 512 à 128. La réduction du nombre de paramètres permet aussi de réduire la taille du modèle ce qui le rend de plus en plus embarquable sur le hardware .  
 
 ```
 Model: "sequential_1"
@@ -131,15 +131,15 @@ Epoch 50/50
 99/99 [==============================] - 23s 234ms/step - loss: 0.0473 - accuracy: 0.9836 - val_loss: 0.2151 - val_accuracy: 0.9479
 ```
 
-L'accuracy a augmentée à 94.78 % . Le modéle est donc parfait puisqu'il n'ya pas d'overfitting.
+L'accuracy a augmentée à **94.78** % . Le modéle est donc parfait puisqu'il n'ya pas d'overfitting.
 
 <p align="center">
   <img src="img/graph_mod2.jpg" />
 </p>
 
 # Embarquer le modèle sur la carte STM32L4R9 
-Jusqu'à maintenant nous avons notre modèle avec une accuracy de 94.78%. Nous allons maintenant embarquer le modèle sur la carte.
-Pour embarquer le modéle sur la carte STM32, nous avons sauvegarder le modele sous format h5 *“model.h5”* ainsi que les images et les labels.(*x_test.npy* et *y_test.npy*).\
+Jusqu'à maintenant nous avons notre modèle avec une accuracy de **94.78%**. Nous allons maintenant l'embarquer sur la carte.
+Pour embarquer le modéle sur la carte STM32, nous avons sauvegarder le modèle sous format h5  [*model.h5*](model.h5) ainsi que les images et les labels.(*x_test.npy* et *y_test.npy*).\
 Après, on cré notre network *"saline_network"* sur *STMCubeIDE* et on analyse notre modèle.
 Les résultats sont indiqués dans la figure ci-dessous:
 
