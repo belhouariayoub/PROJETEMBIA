@@ -153,6 +153,75 @@ Les deux figures ci-dessous montre le graphique de notre modèle.
   <img src="img/graph2.jpg" />
 </p>
 
+# Tester le Modèle sur la STM32
+## Main.c
+Dans ce fichier, il faut juste blocker l'initialisation du port usb_otg et le SDMCC1 pour ne pas blocker notre UART2 et la boucle principale va appeler le MX_X_CUBE_AI_Process() en permanence.
+## App_x-cube-ai.c
+Dans ce fichier, se trouve tout le code principale pour tourner les inferences sur la carte et c'est là où les modifications vont se faire.
+D'abord, il faut declarer notre HandlerTypeDef pour le UART2 (*huart2*).
+Après, il y a les 4 fonctions principales: *MX_X_CUBE_AI_Process*, *acquire_and_process_data(in_data)*, *ai_run()* et *post_process(out_data)*.
+
+### MX_X_CUBE_AI_Process
+
+C'est la fonction appeléedans le main et qui va gérer le code pour faire tourner le modèle.
+On déclare d'abord les buffers pour les données d'entrée et sorties
+``` 
+  uint8_t *in_data = NULL;
+  uint8_t *out_data = NULL;
+```
+Ensuite, on gère la syncronisation entre le fichier python et la STM32 en attendant le message "sync" et puis en renvoyant un ack de valeur "101".
+Suite à la syncronisation, on lance la fonction *acquire_and_process_data(in_data[])*. Après, on va lancer notre modèle avec *ai_run()*, et enfin, envoyer le résultat via le UART2 au scripte python avec la fonction *post_process(out_data[])*.
+
+### -acquire_and_process_data(in_data[])
+
+Cette fonction est responsable de traiter les données: Il faut récupérer notre image du huart2 dans le même ordre qu'on va l'envoyer avec le scripte python c.a.d on envoie les 64x64 pixels de chaque layer de couleur.
+Après, il faut linéariser cette immage dans le tableau data[] en divisant chaque pixel de 32 bits(uint32_t) sur 4 variables de uint8_t.
+En testant le modele sur la carte, on a constaté qu'il faut linéariser l'image en rangeant pour chaque pixel, les valeurs des 3 layers successivement, puis ligne par ligne. On obtient la boucle suivante:
+```
+for (z=0; z<3;z++){
+		for (i = 0; i < 64; i++){
+			for (j = 0; j < 64; j++){
+				HAL_UART_Receive(&huart2, (uint8_t *) tmp, sizeof(tmp), 100);
+				input[i][j][z] = *(float*) &tmp;
+				for ( k = 0; k < 4; k++){
+					// Linearise the image and divid it in a 8bit buffer.
+					((uint8_t *) data)[((i*192+j*3+z)*4)+k] = tmp[k];
+					//test_data[((i*64+j*64+z)*4)+k] = tmp[k];
+				}
+			}
+		}
+	}
+```
+
+### -ai_run()
+Dans cette fonction, on passe les données traitées à notre *saline_network* et il retourn sa prediction.
+
+### -post_process(out_data[])
+Quand le modèle termine son inféraence, on va stockées sa sortie dans un tableau de dimension 4 contenant des probabilitées pour chaque classe de résolution *float*. Ces probabilitées seront chargées de la sortie du modèle chacune sur 4 buffer de *uint8_t* et puis linéarisées dans le tableau précédant (*prob_classes[4]*).
+En ce moment, on va envoyer sur l'uart "010" pour notifier le scripte python puis envoyer notre résultat octet par octet sur l'uart.
+Ainsi, l'inférence est terminée!.
+*On a due ajouter un délais à la fin de ce process pour pouvoir récupérer les résultats à la fin de l'inférence avant de répéter le process de nouveau.*
+
+
+
+
+
+## Envoie et réception des images via UART
+le format des images envoyées est (64, 64, 3), alors on va envoyer les 64x64 pixels de chacunes des 3 layers de couleurs.
+Dans le fichier de communication, on a accomplit cela dans le "for loop".
+
+```
+# rgb processing
+        for k in range(3):
+            for i in range(64):
+                for j in range(64):
+                    ser.write(tmp[i,j,k])
+
+        input_sent = True
+```
+
+
+
 
 
 
