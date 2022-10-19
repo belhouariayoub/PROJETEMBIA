@@ -260,7 +260,7 @@ On peut voir qu'on obtient le même resultat que précédemment.
 # Conclusion
 Nous avons réussi à élaborer un modèle  fonctionnel en partant juste de la dataset et de l'embarquer sur la carte STM Discovery (STM32L4R9). Ce modèle résiste aux attaques FGSM (avec un epsilon<0.7).Nous avons rencontré des difficultés pour communiquer la carte avec le code python mais à la fin le problème est résolu.
 On a pas pu lancer plusieurs inférences à la foie c'est-à-dire tester plusieurs images à la fois,Le problème c'est que pour la nouvelle inférence, le scripte re-synchronise avec la carte mais  la carte se bloque et on ne reçoit plus l'informations.
-Ce projet pourra avoir des améliorations dans le future comme la prédiction des images entrés depuis l'écran tactile de la carte *STM32L4R9*.
+Ce projet pourra avoir des améliorations dans le future comme la prédiction des images entrées depuis l'écran tactile de la carte *STM32L4R9*.
 En fin , nous somme contents des résultats malgrés les différentes difficultés et contraintes du projet .
 
 
